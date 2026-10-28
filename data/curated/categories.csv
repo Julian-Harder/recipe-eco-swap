@@ -1,0 +1,42 @@
+category,agribalyse_code,co2_kg_per_kg,synonyms
+beef mince,6252,35.7,beef mince|minced beef|ground beef|beef|steak
+chicken breast,36017,5.58,chicken breast|chicken breasts|chicken|chicken fillet|chicken fillets
+pork,28302,6.58,pork|pork loin|pork chop|pork chops|pork shoulder|minced pork|ground pork
+lamb,21502,41.3,lamb|leg of lamb|lamb chops|minced lamb|ground lamb
+salmon,26036,5.55,salmon|salmon fillet|salmon fillets
+tuna,26053,4.98,tuna|tuna steak|canned tuna|tinned tuna
+prawns,10021,20.4,prawns|prawn|shrimp|shrimps
+eggs,22000,1.88,egg|eggs
+milk,19042,1.27,milk|whole milk|semi-skimmed milk|skimmed milk
+butter,16400,7.94,butter|unsalted butter|salted butter
+cheese (hard),12115,6.28,cheese|parmesan|cheddar|emmental|gruyere|grated cheese|comte|pecorino
+mozzarella,19590,4.77,mozzarella
+cream,19415,3.75,cream|double cream|heavy cream|single cream|whipping cream|creme fraiche
+yogurt,19593,1.89,yogurt|yoghurt|greek yogurt|natural yogurt|plain yogurt
+tofu,20904,1.0,tofu|firm tofu|silken tofu
+lentils,20504,0.581,lentils|lentil|red lentils|green lentils|brown lentils
+chickpeas,20516,0.899,chickpeas|chickpea|garbanzo beans
+beans,20525,0.858,beans|kidney beans|red kidney beans|black beans|white beans|cannellini beans|borlotti beans
+rice,9100,2.01,rice|basmati rice|long grain rice|risotto rice|arborio rice|brown rice
+pasta,9810,1.98,pasta|spaghetti|penne|fusilli|tagliatelle|macaroni|linguine|lasagne sheets
+bread,7001,0.776,bread|baguette|breadcrumbs|bread slices|slice of bread|slices of bread
+potatoes,4008,0.788,potato|potatoes
+onion,20034,0.421,onion|onions|red onion|shallot|shallots
+tomato,20047_2,0.626,tomato|tomatoes|cherry tomatoes|chopped tomatoes|tinned tomatoes|canned tomatoes|passata
+carrot,20009,0.396,carrot|carrots
+bell pepper,20041,0.715,bell pepper|bell peppers|red pepper|green pepper|yellow pepper|peppers
+spinach,20059,0.423,spinach|baby spinach
+mushrooms,,,mushroom|mushrooms|button mushrooms|chestnut mushrooms
+garlic,11000,0.383,garlic|garlic clove|garlic cloves|cloves garlic|clove garlic
+olive oil,17270,1.63,olive oil|extra virgin olive oil
+sunflower oil,17440,2.36,sunflower oil|vegetable oil|oil
+sugar,31016,0.746,sugar|caster sugar|white sugar|granulated sugar
+flour,9440,0.791,flour|plain flour|all-purpose flour|wheat flour|self-raising flour
+oats,9311,1.22,oats|rolled oats|porridge oats|oatmeal
+oat milk,18905,0.566,oat milk|oat drink
+soy milk,18900,0.427,soy milk|soya milk|soy drink
+almonds,15041,2.63,almond|almonds|ground almonds
+chocolate,31085,15.4,chocolate|dark chocolate|cooking chocolate|chocolate chips
+coffee,18003,8.4,coffee|ground coffee|espresso
+avocado,13004,1.55,avocado|avocados
+banana,13005,0.909,banana|bananas

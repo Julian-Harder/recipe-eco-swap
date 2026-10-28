@@ -1,0 +1,22 @@
+from_category,to_category,reason,notes
+beef mince,lentils,Pulses replace mince in bolognese/chilli at a fraction of the CO2,Use ~1/3 the dry weight (lentils swell); scored weight-for-weight here
+beef mince,chicken breast,Poultry has far lower emissions than beef,Closest texture/protein swap for meat eaters
+beef mince,pork,Pork emits roughly 5x less than beef,Mixed mince is a gentler step
+beef mince,beans,Kidney beans work well in chilli and tacos,Scored weight-for-weight on dry beans
+beef mince,tofu,Crumbled firm tofu mimics mince,Season well
+lamb,chicken breast,Ruminant meat is the highest-impact category,Works for curries and kebabs
+lamb,chickpeas,Chickpeas suit tagines and curries,Scored weight-for-weight on dry chickpeas
+prawns,salmon,Farmed prawns have high emissions,Keeps a seafood dish
+prawns,tofu,Plant protein for stir-fries,
+butter,olive oil,Plant oil instead of dairy fat,Use ~3/4 the amount when cooking
+butter,sunflower oil,Neutral oil for baking/frying,Use ~3/4 the amount
+milk,oat milk,Plant drink has about half the emissions,Fine for sauces and baking
+milk,soy milk,Plant drink with comparable protein,
+cream,oat milk,Lighter base for sauces,Thicken with a little flour
+cream,yogurt,Yogurt has about half the CO2 of cream,Add off the heat to avoid splitting
+cheese (hard),mozzarella,Fresh cheese has lower impact than aged hard cheese,
+cheese (hard),yogurt,Tangy creaminess for dips and dressings,Not a melting cheese
+chicken breast,tofu,Plant protein for stir-fries and curries,
+chicken breast,chickpeas,Pulses for curries and salads,
+chocolate,banana,Fruit for sweetness instead of high-impact cocoa,Works in baking and desserts
+rice,potatoes,Paddy rice emits methane; potatoes are lower,
