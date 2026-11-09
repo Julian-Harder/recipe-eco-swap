@@ -1,16 +1,49 @@
-line,gold_category
-200g minced beef,beef mince
-1 tbsp olive oil,olive oil
-2 large eggs,eggs
-"1 onion, finely chopped",onion
-2 cloves garlic,garlic
-400g can chopped tomatoes,tomato
-250 ml semi-skimmed milk,milk
-50g unsalted butter,butter
-100 g grated parmesan,cheese (hard)
-300g spaghetti,pasta
-1 cup basmati rice,rice
-2 chicken breasts,chicken breast
-150g red lentils,lentils
-1 red bell pepper,bell pepper
-200ml double cream,cream
+line,gold_codes,gold_name,kind
+200g minced beef,6252|6254|6256|6250,"Beef, minced steak, raw (any fat level)",easy
+1 tbsp olive oil,17270,"Olive oil, extra virgin",easy
+2 large eggs,22000,"Egg, raw",easy
+"1 onion, finely chopped",20034,"Onion, raw",easy
+2 cloves garlic,11000,"Garlic, fresh",easy
+400g can chopped tomatoes,20048|20169,"Tomato, peeled, canned / tomato pulp, canned",easy
+250 ml semi-skimmed milk,19042,"Milk, semi-skimmed, pasteurised",easy
+50g unsalted butter,16400,"Butter, 82% fat, unsalted",easy
+100 g grated parmesan,12120,"Parmesan cheese, from cow's milk",easy
+300g spaghetti,9810,"Dried pasta, raw",easy
+1 cup basmati rice,9119,"Basmati rice, raw",easy
+2 chicken breasts,36017|36029,"Chicken, breast, raw (with or without skin)",easy
+150g red lentils,20535,"Lentil, pink or red, dried",easy
+1 red bell pepper,20087|20041,"Sweet pepper, red, raw",easy
+200ml double cream,19415|19410,"Cream 30% fat, liquid or thick",easy
+500ml beef stock,25930,"Broth, stock or bouillon, beef, reconstituted",trap
+1 litre vegetable stock,25948,"Broth, stock or bouillon, vegetables, reconstituted",trap
+2 tbsp peanut butter,15202,Peanut butter or peanut paste,trap
+400g can butter beans,20063,"Butter bean or yellow bean, canned, drained",trap
+200g cream cheese,12315|12340|19649,"Uncured soft cheese, spreadable / fresh cream cheese, creamy",trap
+400ml coconut milk,18041,Coconut milk or coconut cream,trap
+250ml almond milk,18107,"Almond drink not sweet, not fortified, prepacked",trap
+1 tbsp sesame oil,17400,Sesame oil,trap
+1 beef tomato,20047_1|20047_2,"Tomato, raw",trap
+250g egg noodles,9821,"Dried egg pasta, raw",trap
+2 sweet potatoes,4101,"Sweet potato, raw",trap
+3 spring onions,11003,"Chive or spring onion, fresh",trap
+2 tbsp soy sauce,11104,"Soy sauce, prepacked",trap
+100g milk chocolate,31004,Milk chocolate bar,trap
+100g lamb's lettuce,20099,"Lamb's lettuce, raw",trap
+150g goat cheese,12803|12805,"Cheese, from goat's milk (fresh or not)",trap
+1 tsp garlic powder,11023,"Garlic, powder, dried",trap
+2 courgettes,20020,"Courgette or zucchini, pulp and peel, raw",synonym
+1 aubergine,20053,"Eggplant, raw",synonym
+1 bunch fresh coriander,11094,"Coriander, fresh",synonym
+50g rocket,20217,"Roman rocket, raw",synonym
+500g mince,6252|6254|6256|6250,"Beef, minced steak, raw (any fat level)",synonym
+200ml single cream,19430,"Liquid cream, light, 15-20% fat, UHT",synonym
+4 scallions,11003,"Chive or spring onion, fresh",synonym
+300g cod fillet,26043,"Cod, raw",synonym
+150g lardons,28501|28720,"Lardoons, raw (plain or smoked)",synonym
+200g feta,12061|12060,Feta cheese (ewe's milk or cow's milk type),synonym
+2 tbsp honey,31008,Honey,synonym
+3 tomatos,20047_1|20047_2,"Tomato, raw",typo
+1 head of brocoli,20057,"Broccoli, raw",typo
+2 chiken breasts,36017|36029,"Chicken, breast, raw (with or without skin)",typo
+50g parmesean,12120,"Parmesan cheese, from cow's milk",typo
+1 tsp xanthan gum,,"(not in Agribalyse: the matcher should abstain)",none
