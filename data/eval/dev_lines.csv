@@ -1,0 +1,49 @@
+line,gold_codes,gold_name,kind
+1 kg potatoes,4008,"Potato, peeled, raw",easy
+"2 carrots, diced",20009,"Carrot, raw",easy
+200g white rice,9100,"Rice, raw",easy
+500g plain flour,9440|9436|9435,"Wheat flour, type 55 or 65",easy
+100g caster sugar,31016,"Sugar, white",easy
+300ml whole milk,19024|19023,"Milk, whole",easy
+1 tbsp sunflower oil,17440,Sunflower oil,easy
+2 salmon fillets,26036,"Salmon, raw, farmed",easy
+150g grated cheddar,12726,"Cheddar cheese, from cow's milk",easy
+1 lemon,13009,"Lemon, pulp, raw",easy
+500g beef steak,6111|6206|6212|6204|6103,"Beef, steak, raw (sirloin, rump, flank, hanger, rib)",easy
+2 apples,13620|13050|13085,"Apple, raw",easy
+150g natural yogurt,19593,"Yogurt, plain",easy
+200g minced lamb,21502|21514|21516|21500,"Lamb, raw (no minced lamb in Agribalyse)",easy
+400g spinach,20059|20270,"Spinach, raw",easy
+50g dark chocolate,31085|31005|31074,Dark chocolate bar,easy
+300ml chicken stock,25947,"Broth, stock or bouillon, poultry, reconstituted",trap
+100g ground almonds,15041|15000,"Almond, raw",trap
+1 tbsp coconut oil,16060|6,Coconut oil,trap
+200g rice noodles,9900,"Rice noodle, dried",trap
+500ml oat milk,18905,"Oat-based drink, plain",trap
+2 tbsp tomato paste,20068,"Tomato paste, concentrated, canned",trap
+400g can chickpeas,20532,"Chick pea, canned, drained",trap
+100g chickpea flour,9580,Chick pea flour,trap
+1 tsp paprika,11049,Paprika,trap
+100g smoked salmon,26037,"Salmon, smoked",trap
+2 tbsp maple syrup,31034,"Syrup, maple",trap
+4 chicken thighs,36019|36024|36002,"Chicken, leg/thigh meat, raw",trap
+200g green beans,20061_1|20070,"French bean, raw or frozen",trap
+1 tbsp cornflour,9510,Maize/corn starch,trap
+1 can tuna,26039|26181|26180|26245,"Tuna, canned",trap
+1 tbsp lemon juice,2028,"Lemon juice, pure juice",trap
+2 tbsp brown sugar,31017,"Sugar, brown",trap
+2 red chillies,20151,"Chili pepper, raw",trap
+2 zucchini,20020,"Courgette or zucchini, raw",synonym
+1 eggplant,20053,"Eggplant, raw",synonym
+100g arugula,20217,"Roman rocket, raw",synonym
+500g ground beef,6252|6254|6256|6250,"Beef, minced steak, raw (any fat level)",synonym
+1 green bell pepper,20085|20041,"Sweet pepper, green, raw",synonym
+300g shrimp,10021|10038|10059,"Shrimp or prawn, raw",synonym
+200g garbanzo beans,20516|20532,"Chick pea, dried or canned",synonym
+2 tbsp cilantro,11094,"Coriander, fresh",synonym
+2 potatos,4008,"Potato, peeled, raw",typo
+100g mozarella,19590,Mozzarella cheese,typo
+200g spinnach,20059|20270,"Spinach, raw",typo
+1 tbsp sunflwer oil,17440,Sunflower oil,typo
+200g mushrooms,,"(no raw mushroom in Agribalyse: abstain)",none
+1 tbsp psyllium husk,,"(not in Agribalyse: abstain)",none

@@ -3,3 +3,5 @@ pyarrow
 jupyter
 duckdb
 requests
+sentence-transformers
+streamlit
