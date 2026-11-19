@@ -66,7 +66,39 @@ We did not change the matcher to fix it. Three reasons are visible in the misses
   closer to what the app does (a low-confidence line becomes a dropdown, not a blank).
 - Scores on the 43 audited pairs with a correct label.
 
-Results of the follow-up: [to be added]
+### Follow-up results (2026-11-19, Marc's MacBook)
+| | Pairs | Correct | CO2 within ±20% | Wrong | No answer | Top 5 |
+|---|---|---|---|---|---|---|
+| Keyword baseline | 460 | 257 (56%) | 299 (65%) | 181 | 22 | n/a |
+| AI, threshold 0.80 | 460 | 190 (41%) | 234 (51%) | 139 | 131 | 392 (85%) |
+| AI, forced to answer | 460 | 233 (51%) | **304 (66%)** | 227 | 0 | n/a |
+| Keyword, audited correct labels | 43 | **30 (70%)** | **32 (74%)** | 13 | 0 | n/a |
+| AI, threshold 0.80, audited correct labels | 43 | 22 (51%) | 26 (60%) | 10 | 11 | **42 (98%)** |
+
+### What we conclude
+- **Label noise is not the whole story.** Even on the 43 pairs with a checked label, the keyword baseline beats the
+  AI's first answer (70% vs 51%, with ±15 points of uncertainty on 43 pairs). We do not claim the AI is better on
+  product names.
+- **Part of it is how the set was built:** each product was found by searching OFF for one of our category names,
+  which are also the keyword matcher's synonyms. So almost every product name contains a keyword the baseline
+  knows ("Aldi Beef Mince" → "beef mince"), and none of the traps or synonyms where the AI wins on recipe lines
+  (holdout: 79% vs 48%) appear here. The set favours the baseline by construction; we noticed this only after
+  the run.
+- **The threshold costs the AI most here:** forced to answer, its footprint is as good as the baseline's
+  (CO2 within ±20%: 66% vs 65%). With the threshold it declines 28% of branded names.
+- **The dropdown still works:** the right food is in the AI's top 5 for 98% of the audited products and 85% of
+  all products, so in the app a user gets there in one click.
+- **Different task, different winner.** On recipe ingredient lines (what the app is for) the AI is clearly
+  better: holdout 79% vs 48%, test 75% vs 27%. On branded product names with OFF's coarse labels, simple
+  keyword matching is as good or better.
+
+### Decisions
+- Keep the AI matcher for recipe lines (unchanged).
+- In the barcode section of the app, OFF's own Agribalyse link is the main answer; our matcher's guess is shown
+  next to it only as a comparison.
+- Possible future work, not started: strip brand and marketing words from product names before matching, and
+  build an OFF set by barcode or random sampling instead of by our category names, so it does not favour the
+  baseline.
 
 ---
 
