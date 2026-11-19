@@ -30,8 +30,28 @@ are test lines. The dev set was used to choose settings. We need lines nobody ha
 Run once, with the settings already in `main`: `python src/evaluate.py --holdout`. Whatever the result, it is
 reported as is and nothing is tuned on it afterwards.
 
-### Results
-[to be added]
+### Results (run once, 2026-11-19, Marc's MacBook)
+| | Correct | CO2 within ±20% | Wrong | Abstained | Top 5 |
+|---|---|---|---|---|---|
+| Keyword baseline | 14/29 (48%) | 59% | 5 | 11 | n/a |
+| **AI matcher (food_embeddings + normalization, threshold 0.80)** | **23/29 (79%)** | **79%** | **2** | 5 | **28/28 (100%)** |
+
+- **This is the number we report: 79% on lines nobody tuned on, against 48% for keyword matching.** With 29 lines
+  the uncertainty is large (roughly ±15 points, 95% interval), but the 31-point gap is about twice that.
+- It sits between the dev score (85%) and the earlier blind test score (75%), so the dev tuning does not look overfitted.
+- By kind: British words 4/4, the line with no correct food 1/1 (no answer), traps 3/5, easy 15/19.
+- **The right food is in the top 5 for every line (28/28)**: in the app, every miss is fixed with one click.
+
+### What went wrong (recorded, not fixed on this set)
+- **Wrong answers (2), the dangerous kind because the user may not notice:**
+  "red wine vinegar" → "Wine, red" (a trap: the word "wine" wins) and "large white onion" → "Onion, dried"
+  (dried is not penalised, on purpose, because it is the normal form of pulses and pasta).
+- **No answer (4), just under the 0.80 threshold (scores 0.64–0.79):** chicken thighs, English cucumber,
+  free-range eggs, skin-on salmon fillets. All four lines carry descriptive words ("boneless", "free-range",
+  "skin-on", "(about 150g each)", "English") that dilute the embedding. The app asks the user, and the right food
+  is in the dropdown.
+- Possible next step (to be tested on dev and judged on a NEW holdout, never on this one): drop descriptive words
+  and text in brackets before matching, and penalise "dried" for vegetables.
 
 ---
 
