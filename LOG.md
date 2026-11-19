@@ -4,6 +4,57 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Holdout set, the number we trust
+
+### Why
+The 48-line test set is no longer blind: we have read its misses many times, and some synonym-list entries
+are test lines. The dev set was used to choose settings. We need lines nobody has tuned on.
+
+### How it was made
+- **Lines:** 29 ingredient lines from six dishes (chicken curry, salad, pancakes with bacon, chocolate cake,
+  salmon with dill, lentil soup), generated with Gemini by Marc from a short prompt (ordinary ingredients,
+  British/American words, tricky names, an unusual ingredient), without access to our code, synonym list or
+  evaluation sets, then reviewed by Marc. Written after all matcher choices were made. Gemini gave 30 lines;
+  "2 tbsp maple syrup" was dropped because it is already a dev line (caught by the overlap test).
+- **Labels:** the correct Agribalyse food(s) for each line were chosen by text search in `data/index/foods.csv`
+  before any model ran on these lines. Several codes are accepted when the recipe line is ambiguous
+  ("vegetable oil": blended, rapeseed or sunflower oil; "streaky bacon": smoked or salt-cured pork belly, or bacon).
+  "50g pitted Kalamata olives" has no correct food (black olives are not in the index), so the right answer
+  is no answer.
+- **Mix:** 19 easy, 5 traps (curry powder, coconut milk, red wine vinegar, chicken stock, chicken thighs),
+  4 British words (rocket, plain flour, streaky bacon, caster sugar), 1 with no correct food.
+- **Limit:** Gemini wrote no typos, so typo correction is not measured here (only on dev, 4/4).
+- `tests/test_score_and_data.py` checks that every gold code exists and that no holdout line is in test or dev.
+
+### Rule
+Run once, with the settings already in `main`: `python src/evaluate.py --holdout`. Whatever the result, it is
+reported as is and nothing is tuned on it afterwards.
+
+### Results (run once, 2026-11-19, Marc's MacBook)
+| | Correct | CO2 within ±20% | Wrong | Abstained | Top 5 |
+|---|---|---|---|---|---|
+| Keyword baseline | 14/29 (48%) | 59% | 5 | 11 | n/a |
+| **AI matcher (food_embeddings + normalization, threshold 0.80)** | **23/29 (79%)** | **79%** | **2** | 5 | **28/28 (100%)** |
+
+- **This is the number we report: 79% on lines nobody tuned on, against 48% for keyword matching.** With 29 lines
+  the uncertainty is large (roughly ±15 points, 95% interval), but the 31-point gap is about twice that.
+- It sits between the dev score (85%) and the earlier blind test score (75%), so the dev tuning does not look overfitted.
+- By kind: British words 4/4, the line with no correct food 1/1 (no answer), traps 3/5, easy 15/19.
+- **The right food is in the top 5 for every line (28/28)**: in the app, every miss is fixed with one click.
+
+### What went wrong (recorded, not fixed on this set)
+- **Wrong answers (2), the dangerous kind because the user may not notice:**
+  "red wine vinegar" → "Wine, red" (a trap: the word "wine" wins) and "large white onion" → "Onion, dried"
+  (dried is not penalised, on purpose, because it is the normal form of pulses and pasta).
+- **No answer (4), just under the 0.80 threshold (scores 0.64–0.79):** chicken thighs, English cucumber,
+  free-range eggs, skin-on salmon fillets. All four lines carry descriptive words ("boneless", "free-range",
+  "skin-on", "(about 150g each)", "English") that dilute the embedding. The app asks the user, and the right food
+  is in the dropdown.
+- Possible next step (to be tested on dev and judged on a NEW holdout, never on this one): drop descriptive words
+  and text in brackets before matching, and penalise "dried" for vegetables.
+
+---
+
 ## 2026-11-19: Deploying the app and collecting feedback (towards level 4)
 
 ### Why
@@ -106,7 +157,7 @@ Run on 2026-11-19 (Marc's MacBook). Same model, threshold 0.80 and settings; onl
   "2 salmon fillets" → salmon rillettes, "50g dark chocolate" → filled chocolate, "4 chicken thighs" → roasted leg.
 
 ### Holdout
-[to be added: written by a team member, labelled before running, run once]
+See the entry "Holdout set" (2026-11-19) above.
 
 ---
 

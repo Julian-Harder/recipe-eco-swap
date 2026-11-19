@@ -76,3 +76,18 @@ def test_test_and_dev_sets_do_not_overlap():
     test = set(pd.read_csv(ROOT / ROOT_EVAL[0])["line"].str.lower().str.strip())
     dev = set(pd.read_csv(ROOT / ROOT_EVAL[1])["line"].str.lower().str.strip())
     assert not (test & dev), f"lines in both test and dev: {sorted(test & dev)}"
+
+
+def test_holdout_set(foods):
+    # The holdout is only trustworthy if its labels point to real foods and it shares no line with test/dev.
+    from conftest import ROOT
+
+    holdout = pd.read_csv(ROOT / "data/eval/holdout_lines.csv", dtype={"gold_codes": str})
+    assert {"line", "gold_codes", "gold_name", "kind"} <= set(holdout.columns)
+    gold = {c for cell in holdout["gold_codes"].dropna() for c in cell.split("|")}
+    assert not (gold - set(foods.index)), f"holdout gold codes not in foods.csv: {sorted(gold - set(foods.index))}"
+    seen = set()
+    for path in ROOT_EVAL:
+        seen |= set(pd.read_csv(ROOT / path)["line"].str.lower().str.strip())
+    overlap = set(holdout["line"].str.lower().str.strip()) & seen
+    assert not overlap, f"holdout lines also in test/dev: {sorted(overlap)}"
