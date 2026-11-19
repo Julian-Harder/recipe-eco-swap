@@ -44,7 +44,35 @@ No change that looks wrong.
 left alone (including "xanthan gum"), synonyms before typos. 61 fast tests pass.
 
 ### Results
-[to be added: dev with and without normalization, test (not blind), holdout (once)]
+Run on 2026-11-19 (Marc's MacBook). Same model, threshold 0.80 and settings; only normalization changes.
+
+| AI matcher | Correct | CO2 within ±20% | Wrong | Abstained | Top 5 |
+|---|---|---|---|---|---|
+| Dev, without normalization | 33/48 (69%) | 77% | 9 | 8 | 41/46 (89%) |
+| **Dev, with normalization** | **41/48 (85%)** | **88%** | **7** | **2** | **46/46 (100%)** |
+| Test, before (iteration 2 + parser fixes) | 36/48 (75%) | 77% | 5 | 8 | 45/47 (96%) |
+| Test, with normalization (**not blind**, see above) | 44/48 (92%) | 92% | 4 | 1 | 47/47 (100%) |
+| Keyword baseline, dev / test | 22/48 (46%) / 13/48 (27%) | 54% / 35% | 12 / 19 | 16 / 17 | n/a |
+
+- **Dev, the fair comparison: +8 lines (69% → 85%).** Typos 2/4 → 4/4, synonyms 5/8 → 7/8, traps 13/18 → 16/18
+  (cornflour, green beans, red chillies). Wrong answers also go down (9 → 7): the gain is not bought with more
+  confident mistakes.
+- Abstentions drop from 8 to 2 on dev, and the right food is now in the top 5 for every dev and test line.
+  In the app this means almost no line asks the user to search.
+- The test number (92%) is reported but not trusted, because some glossary entries are test lines.
+  The trusted number will be the holdout.
+
+### Decision: keep (normalize=True by default)
+
+### Remaining misses (to look at on dev only, not fixed here)
+- Processed or cooked forms still win sometimes: "2 zucchini" → "Courgettes, puree", "150g lardons" →
+  "Lardoons, cooked" (the raw-weights filter misses it because the raw and cooked names differ),
+  "400g can chickpeas" → "Chick pea, dried" (the canned form is lost).
+- Easy lines with a better-scoring variant: "2 carrots, diced" → grated carrots, "2 apples" → dried apple,
+  "2 salmon fillets" → salmon rillettes, "50g dark chocolate" → filled chocolate, "4 chicken thighs" → roasted leg.
+
+### Holdout
+[to be added: written by a team member, labelled before running, run once]
 
 ---
 
