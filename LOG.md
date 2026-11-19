@@ -35,8 +35,38 @@ found product, an unknown barcode and a network error. 68 fast tests pass. CI no
 |---|---|---|
 | Open Food Facts | **Real** | external validation set + barcode lookup in the app (was: Stub) |
 
-### Results
-[to be added: python src/off_validate.py --collect]
+### First run (2026-11-19): the keyword baseline wins on OFF products
+460 pairs from 40 of the 41 queries ("cheese (hard)" found no English-market product with a usable link).
+
+| | Correct | Wrong | No answer | Top 5 |
+|---|---|---|---|---|
+| Keyword baseline | **257/460 (56%)** | 181 | 22 | n/a |
+| AI matcher (threshold 0.80) | 190/460 (41%) | 139 | 131 | 392/460 (85%) |
+
+We report this as it is: on branded product names the AI is **worse** than keyword matching under this metric.
+We did not change the matcher to fix it. Three reasons are visible in the misses:
+1. **OFF labels are noisy.** "Chicken breast" → "Chicken, meat and skin"; "British beef mince" → "Beef steak";
+   "mushrooms" → morels (11 of 12); "bananas" → plantains (9 of 12). In such cases the AI's answer is often
+   the right one and is counted wrong.
+2. **The near-duplicate rule is strict here.** Beef mince 5% and 10% fat are different foods for the calorie rule
+   but have the same CO2 factor (35.7). The keyword baseline always returns its category's default food, which
+   is often the same coarse food OFF uses.
+3. **Product names are long and branded** ("Simply... Piri Piri chicken breast slices"), so the AI falls under
+   the 0.80 threshold for 28% of products and gives no answer, while the keyword matcher almost always answers
+   (and is wrong 181 times, against 139 for the AI).
+
+### Follow-up analysis (decided after the first run, stated as such)
+- **Label audit:** 60 pairs drawn at random (seed 42) and checked by hand against the product name, without
+  looking at either matcher's answer: 43 correct (72%), 8 approximate (13%, e.g. prawn cocktail → raw prawns),
+  9 plainly wrong (15%: bananas → plantains, mushrooms → morels, skinless breast → meat and skin, mince → steak,
+  double cream → light cream, salmon fishcakes → raw salmon). Saved in `data/eval/off_label_audit.csv`.
+- **CO2 within ±20%**, the project's secondary metric, which this script had left out: for the footprint,
+  5% vs 10% fat mince is the same answer.
+- **AI forced to answer** (no threshold): how often its first choice is right when it must answer, which is
+  closer to what the app does (a low-confidence line becomes a dropdown, not a blank).
+- Scores on the 43 audited pairs with a correct label.
+
+Results of the follow-up: [to be added]
 
 ---
 

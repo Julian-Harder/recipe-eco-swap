@@ -24,6 +24,8 @@ from foods import load_foods, same_food  # noqa: E402
 from match import load_categories  # noqa: E402
 
 PAIRS = Path(__file__).resolve().parents[1] / "data" / "eval" / "off_pairs.csv"
+# 60 pairs drawn at random (seed 42) and checked by hand: is OFF's Agribalyse link right for the product?
+AUDIT = PAIRS.with_name("off_label_audit.csv")
 ENGLISH_COUNTRIES = {"en:united-kingdom", "en:united-states", "en:ireland", "en:canada", "en:australia",
                      "en:new-zealand"}
 PAGE_SIZE = 50
@@ -73,14 +75,26 @@ def collect(search=None) -> pd.DataFrame:
     return pairs
 
 
+CO2_TOLERANCE = 0.20  # the project's secondary metric (same as evaluate.py)
+
+
+def co2_close(code, gold: str, foods: pd.DataFrame) -> bool:
+    """Is the matched food's CO2 factor within ±20% of the gold food's? What matters for the footprint."""
+    if code is None or code not in foods.index:
+        return False
+    gold_co2 = foods.at[gold, "co2_kg_per_kg"]
+    return abs(foods.at[code, "co2_kg_per_kg"] - gold_co2) <= CO2_TOLERANCE * gold_co2
+
+
 def score(matcher, pairs: pd.DataFrame, foods: pd.DataFrame, top_k: bool = False) -> dict:
-    """Top-1 accuracy (with the matcher's threshold: no answer counts as wrong) and, for the AI, top-5."""
-    correct = abstained = in_top5 = 0
+    """Top-1 accuracy (with the matcher's threshold: no answer counts as wrong), CO2 within ±20%, and top 5."""
+    correct = abstained = in_top5 = co2_ok = 0
     misses = []
     for _, r in pairs.iterrows():
         code, _ = matcher.match_food(r["product_name"])
         ok = same_food(code, r["gold_codes"], foods)
         correct += ok
+        co2_ok += co2_close(code, r["gold_codes"], foods)
         abstained += code is None
         if top_k:
             in_top5 += any(same_food(c, r["gold_codes"], foods) for c, _ in matcher.top_k(r["product_name"], 5))
@@ -88,13 +102,14 @@ def score(matcher, pairs: pd.DataFrame, foods: pd.DataFrame, top_k: bool = False
             misses.append((r["product_name"], foods.at[r["gold_codes"], "name"],
                            None if code is None else foods.at[code, "name"]))
     n = len(pairs)
-    return {"n": n, "correct": correct, "abstained": abstained, "wrong": n - correct - abstained,
+    return {"n": n, "correct": correct, "co2_ok": co2_ok, "abstained": abstained, "wrong": n - correct - abstained,
             "top5": in_top5 if top_k else None, "misses": misses}
 
 
 def report(label: str, res: dict, show: int = 15) -> None:
     n = res["n"]
-    line = (f"[{label}] correct {res['correct']}/{n} = {res['correct'] / n:.0%} | wrong {res['wrong']}"
+    line = (f"[{label}] correct {res['correct']}/{n} = {res['correct'] / n:.0%}"
+            f" | CO2 within ±20%: {res['co2_ok']}/{n} = {res['co2_ok'] / n:.0%} | wrong {res['wrong']}"
             f" | no answer {res['abstained']}")
     if res["top5"] is not None:
         line += f" | right food in top 5: {res['top5']}/{n} = {res['top5'] / n:.0%}"
@@ -117,6 +132,20 @@ if __name__ == "__main__":
 
     from match import AIMatcher, KeywordMatcher
 
-    report("keyword baseline", score(KeywordMatcher(), pairs, foods))
+    keyword = KeywordMatcher()
+    report("keyword baseline", score(keyword, pairs, foods))
     ai = AIMatcher(foods)
     report(f"ai: {ai.model_name}, threshold {ai.threshold}", score(ai, pairs, foods, top_k=True))
+
+    # Only the audited pairs whose OFF label was judged correct (about 1 in 7 OFF labels is plainly wrong).
+    if AUDIT.exists():
+        audit = pd.read_csv(AUDIT, dtype={"gold_codes": str})
+        print(f"Label audit: {audit['verdict'].value_counts().to_dict()} (random 60 pairs)\n")
+        clean = audit[audit["verdict"] == "correct"]
+        report("keyword, audited correct labels", score(keyword, clean, foods), show=0)
+        report("ai, audited correct labels", score(ai, clean, foods, top_k=True), show=0)
+
+    # The same, without the confidence threshold: in the app a low-confidence line is shown as a dropdown,
+    # but here it shows how often the model's first choice is right when it is forced to answer.
+    ai.threshold = float("-inf")
+    report("ai, forced to answer (no threshold)", score(ai, pairs, foods), show=0)

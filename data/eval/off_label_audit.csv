@@ -1,0 +1,61 @@
+product_name,query,gold_codes,off_food,verdict,note
+"Salted butter, salted",butter,16403,"Butter, 80% fat, salted",correct,
+Thin cut pork loin steaks,pork,28003,"Pork loin, raw",correct,
+Red Kidney beans,beans,20524,"Red kidney bean, canned, drained",correct,
+Australian Avocado,avocado,13004,"Avocado, pulp, raw",correct,
+"Banana greek yogurt, banana",yogurt,19593,"Yogurt, fermented milk or dairy specialty, plain",approximate,fruit yogurt labelled plain yogurt
+Czech-slovak Dark Bread,bread,7200,Sandwich loaf,approximate,dark rye-type bread labelled sandwich loaf
+Almonds Roasted Salted,almonds,15042,"Almond, grilled, salted",correct,
+Forestiere Mushrooms,mushrooms,20105,"Morel, raw",wrong,mushrooms are not morels
+"The bread garden, arabic pita bread",bread,7180,Pita bread,correct,
+Prawns,prawns,10021,"Shrimp or prawn, raw",correct,
+Organic bananas,banana,53100,"Plantain banana, raw",wrong,bananas are not plantains
+10X Powdered Sugar,sugar,31016,"Sugar, white",correct,
+Prawn Cocktail,prawns,10021,"Shrimp or prawn, raw",approximate,prepared prawn cocktail labelled raw prawns
+Pure Sunflower Oil,sunflower oil,17440,Sunflower oil,correct,
+Crushed Tomatoes,tomato,20048,"Tomato, peeled, canned, drained",correct,
+Awesome Almonds,almonds,15000,"Almond, (with peel)",correct,
+Sun Rice - Brown Rice & Quinoa,rice,9101,"Rice, parboiled, raw",approximate,rice and quinoa mix labelled parboiled rice
+Trio Grape Tomatoes,tomato,20047_1,"Tomato, raw",correct,
+Avocado Oil Spray,avocado,17100,Avocado oil,correct,
+British beef mince,beef mince,6201,"Beef, steak or beef steak, raw",wrong,mince labelled as steak
+Afritada tuna in tomato sauce with vegetables,tuna,26053,"Tuna, raw",approximate,tuna in sauce labelled raw tuna
+Organic Peeled Carrots,carrot,20009,"Carrot, raw",correct,
+100% Hawaiian Coffee Swiss Water Decaf Ground Coffee,coffee,18003,"Coffee, ground",correct,
+8 Lamb Loin Chops,lamb,21500,"Lamb, cutlet, raw",correct,
+Golden Parboiled Rice,rice,9101,"Rice, parboiled, raw",correct,
+Crushed Garlic,garlic,11000,"Garlic, fresh",correct,
+Fantail Prawns,prawns,10021,"Shrimp or prawn, raw",correct,
+Prawns with Coctail Sauce,prawns,10021,"Shrimp or prawn, raw",approximate,prawns with sauce labelled raw prawns
+Peanut butter,butter,15202,Peanut butter or peanut paste,correct,
+Boneless & Skinless Chicken Breasts,chicken breast,36016,"Chicken, meat and skin, raw",wrong,skinless breast labelled meat and skin
+Salmon Fillet Fishcakes,salmon,26036,"Salmon, raw, farmed",wrong,"fishcakes are a prepared product, not raw salmon"
+Sweet & Crunchy Sliced Red Onion,onion,20034,"Onion, raw",correct,
+Fairtrade bananas,banana,53100,"Plantain banana, raw",wrong,bananas are not plantains
+Mushrooms,mushrooms,20105,"Morel, raw",wrong,mushrooms are not morels
+Oat Drink Barista Edition,oats,18905,"Oat-based drink, plain, prepacked",correct,
+Primero extra virgin olive oil,olive oil,17270,"Olive oil, extra virgin",correct,
+Almond milk,almonds,18107,"Almond drink not sweet, not fortified, prepacked",correct,
+Tomato Ketchup,tomato,11008,Ketchup,correct,
+Cooked prawns,prawns,10021,"Shrimp or prawn, raw",approximate,cooked prawns labelled raw
+No Name 100% Extra Virgin Olive Oil,olive oil,17270,"Olive oil, extra virgin",correct,
+48% Milk Chocolate (Otter),chocolate,31004,Milk chocolate bar,correct,
+Bonsoy Soy Milk,soy milk,18900,"Soy drink, plain, prepacked",correct,
+Tofu Extra Soft,tofu,20904,"Tofu, plain",correct,
+Sainsbury's Peeled Prawns,prawns,10021,"Shrimp or prawn, raw",correct,
+Roasted Red Bell Pepper Strips,bell pepper,20275,"Sweet pepper, red, canned, drained",correct,
+Oyster Reef Coffee,coffee,18003,"Coffee, ground",correct,
+King prawns,prawns,10021,"Shrimp or prawn, raw",correct,
+Brown Onions,onion,20034,"Onion, raw",correct,
+Hazelnut Milk Chocolate,chocolate,31018,"Milk chocolate bar, with dried fruits (nuts, almonds, raisins, praline)",correct,
+North atlantic large prawns,prawns,10021,"Shrimp or prawn, raw",correct,
+English Double Cream,cream,19430,"Liquid cream, light, 15-20% fat, UHT",wrong,double cream (~35-48% fat) labelled as light cream 15-20%
+15 eggs from caged hends - class A,eggs,22000,"Egg, raw",correct,
+Vermont Coffee Company,coffee,18003,"Coffee, ground",correct,
+The Darkness Coffee Beans,coffee,18003,"Coffee, ground",correct,
+Lamb Liver,lamb,40102,"Liver, lamb, raw",correct,
+Brown jasmati rice,rice,9119,"Basmati rice, raw",approximate,brown jasmine-basmati labelled basmati
+Extra Virgin Olive Oil,olive oil,17270,"Olive oil, extra virgin",correct,
+Lite soy milk,soy milk,18900,"Soy drink, plain, prepacked",correct,
+Grated mozzarella cheese,mozzarella,19590,"Mozzarella cheese, from cow's milk",correct,
+Chicken Breast Tenders,chicken breast,36016,"Chicken, meat and skin, raw",wrong,breast labelled meat and skin

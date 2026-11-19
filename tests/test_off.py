@@ -3,7 +3,7 @@ import pandas as pd
 
 from match import KeywordMatcher
 from off_api import flatten
-from off_validate import product_name, score, select_pairs
+from off_validate import co2_close, product_name, score, select_pairs
 
 
 def test_flatten_reads_the_agribalyse_link():
@@ -46,3 +46,10 @@ def test_score_counts_right_wrong_and_no_answer(foods, categories):
     res = score(KeywordMatcher(categories), pairs, foods)
     assert (res["correct"], res["wrong"], res["abstained"]) == (1, 1, 1)
     assert len(res["misses"]) == 2
+
+
+def test_co2_close(foods):
+    # Beef mince 5% vs 10% fat: different foods for the near-duplicate rule, but the footprint is the same.
+    assert co2_close("6250", "6252", foods)
+    assert not co2_close("20034", "6252", foods)  # onion vs beef
+    assert not co2_close(None, "6252", foods)
