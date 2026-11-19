@@ -26,7 +26,7 @@ and any of them could silently break the demo bolognese. We had no automated tes
 Run `pytest` before every merge into main; the AI smoke test must pass locally.
 
 ### Result (2026-11-19)
-Fast tests: 28 passed, 5 expected failures (the known bugs). AI tests not yet run on a machine with the model.
+All tests: 31 passed, 5 expected failures (the known bugs), including the AI smoke test (run by Marc, 55 s).
 
 ### Noticed while writing the tests (not fixed here)
 The demo bolognese gets the swap "cheese (hard) → yogurt" for parmesan: the dish-blind swap problem (Step 5).
