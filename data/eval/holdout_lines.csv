@@ -1,0 +1,30 @@
+line,gold_codes,gold_name,kind
+"400g boneless chicken thighs, cut into bite-sized pieces",36019|36024|36002,"Chicken, leg/thigh meat, raw",trap
+2 tbsp vegetable oil,17700|17130|17440,Combined vegetable oil / rapeseed / sunflower oil,easy
+"1 large white onion, finely diced",20034,"Onion, raw",easy
+"3 cloves garlic, minced",11000,"Garlic, fresh",easy
+1 tbsp freshly grated ginger,11074,"Ginger, raw",easy
+2 tbsp curry powder,11005,"Curry, powder",trap
+400ml full-fat coconut milk,18041,Coconut milk or coconut cream,trap
+150g baby spinach leaves,20270|20059,"Spinach, young leaves, raw (or Spinach, raw)",easy
+"200g fresh rocket, washed and dried",20217,"Roman rocket, raw",synonym
+"1 large English cucumber, halved and sliced",20019|20210,"Cucumber, raw",easy
+"100g feta cheese, crumbled",12061|12060,Feta cheese (ewe's milk or cow's milk type),easy
+50g pitted Kalamata olives,,none (black olives are not in the index; the matcher should give no answer),none
+2 tbsp extra-virgin olive oil,17270,"Olive oil, extra virgin",easy
+1 tbsp red wine vinegar,11018,Vinegar,trap
+3 large free-range eggs,22000,"Egg, raw",easy
+150ml whole milk,19024|19023,"Milk, whole",easy
+120g plain flour,9440|9435|9436,"Wheat flour, type 55 or 65",synonym
+1 tsp baking powder,11046,Baking powder or raising agent,easy
+100g streaky bacon rashers,28502|28550|28727,"Pork belly, smoked or salt-cured / Bacon",synonym
+"200g dark chocolate (70% cocoa), chopped",31074|31005|31085,Dark chocolate bar (plain),easy
+150g unsalted butter,16400,"Butter, 82% fat, unsalted",easy
+150g caster sugar,31016,"Sugar, white",synonym
+1 tsp vanilla extract,11065|11098,Vanilla extract (alcoholic or aqueous),easy
+4 skin-on salmon fillets (about 150g each),26036,"Salmon, raw, farmed",easy
+"2 tbsp unsalted butter, melted",16400,"Butter, 82% fat, unsalted",easy
+"1 lemon, juiced and zested",13009|2028,"Lemon, pulp, raw (or lemon juice)",easy
+"1 bunch fresh dill, finely chopped",11093,"Dill, fresh",easy
+1 liter chicken stock,25947,"Broth, stock or bouillon, poultry, reconstituted",trap
+"250g red split lentils, rinsed",20535,"Lentil, pink or red, dried",easy
