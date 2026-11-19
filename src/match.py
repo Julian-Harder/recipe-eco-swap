@@ -12,6 +12,7 @@ import numpy as np
 import pandas as pd
 
 from foods import load_foods
+from normalize import build_vocabulary, normalize_name
 
 CURATED = Path(__file__).resolve().parents[1] / "data" / "curated"
 
@@ -23,6 +24,7 @@ DEFAULT_THRESHOLD = 0.80  # below this score the matcher abstains (returns None)
 DEFAULT_CLEAN_NAMES = False
 DEFAULT_LEXICAL_WEIGHT = 0.3
 DEFAULT_PROCESSED_PENALTY = 0.1
+DEFAULT_NORMALIZE = True  # synonyms + typo correction before embedding (src/normalize.py, LOG 2026-11-19)
 
 # Some models expect an instruction in front of search queries.
 QUERY_PREFIXES = {"BAAI/bge-small-en-v1.5": "Represent this sentence for searching relevant passages: "}
@@ -110,7 +112,8 @@ class AIMatcher:
     def __init__(self, foods: pd.DataFrame | None = None, model_name: str = DEFAULT_MODEL,
                  threshold: float = DEFAULT_THRESHOLD, clean_names: bool = DEFAULT_CLEAN_NAMES,
                  lexical_weight: float = DEFAULT_LEXICAL_WEIGHT,
-                 processed_penalty: float = DEFAULT_PROCESSED_PENALTY):
+                 processed_penalty: float = DEFAULT_PROCESSED_PENALTY,
+                 normalize: bool = DEFAULT_NORMALIZE):
         from sentence_transformers import SentenceTransformer  # slow import, only when used
 
         self.foods = load_foods() if foods is None else foods
@@ -119,6 +122,7 @@ class AIMatcher:
         self.clean_names = clean_names
         self.lexical_weight = lexical_weight
         self.processed_penalty = processed_penalty
+        self.normalize = normalize
         self.model = SentenceTransformer(model_name)
         self._prefix = QUERY_PREFIXES.get(model_name, "")
         self._codes = self.foods["code"].tolist()
@@ -129,6 +133,7 @@ class AIMatcher:
         self._food_words = [words(n) for n in names]
         self._processed = np.array([bool(w & PROCESSED) for w in self._food_words])
         self._query_cache: dict[str, np.ndarray] = {}
+        self._vocabulary = build_vocabulary(names) if normalize else None
 
     def _embed_query(self, text: str) -> np.ndarray:
         if text not in self._query_cache:
@@ -138,6 +143,8 @@ class AIMatcher:
 
     def scores(self, name: str) -> np.ndarray:
         name = name.lower()
+        if self.normalize:
+            name = normalize_name(name, self._vocabulary)
         scores = self._vectors @ self._embed_query(name)
         query_words = words(name)
         if self.lexical_weight and query_words:
