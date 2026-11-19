@@ -4,6 +4,35 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Smoke test and unit tests before changing more code
+
+### Why
+Session 3: test the critical path first. The next steps change the parser, the matcher and the swaps,
+and any of them could silently break the demo bolognese. We had no automated tests.
+
+### Decision
+- `tests/test_smoke.py`: the demo path end to end, with the keyword matcher (runs anywhere) and with the
+  AI matcher (marked `slow`, skipped if the model cannot load). Checks: all lines come out, the total is
+  ≈ 15.2 kg (AI) / ≈ 15.5 kg (keyword), beef matches "Beef, minced steak" and is > 80% of the total,
+  a beef swap exists and every swap saves CO2e. Also three trap lines and the xanthan-gum abstention.
+- `tests/test_parse.py`: 19 parser cases that work today, plus 5 known bugs marked `xfail(strict=True)`
+  (can of tomatoes = 120 g instead of 400 g, "head of", "bunch", "handful", "to taste" left in the name).
+  A fix makes the run fail with XPASS until the marker is removed, so fixes cannot regress unnoticed.
+- `tests/test_score_and_data.py`: CO2e maths, unmatched lines kept but not counted, data files consistent
+  (category codes exist in foods.csv, swaps use known categories, gold codes exist, test ∩ dev = ∅).
+- GitHub Actions runs the fast tests on every push and pull request.
+
+### Team rule
+Run `pytest` before every merge into main; the AI smoke test must pass locally.
+
+### Result (2026-11-19)
+Fast tests: 28 passed, 5 expected failures (the known bugs). AI tests not yet run on a machine with the model.
+
+### Noticed while writing the tests (not fixed here)
+The demo bolognese gets the swap "cheese (hard) → yogurt" for parmesan: the dish-blind swap problem (Step 5).
+
+---
+
 ## 2026-11-09 (iteration 3): Streamlit UI
 
 ### Decision

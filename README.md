@@ -25,6 +25,20 @@ The first run of the AI matcher downloads `jonny9f/food_embeddings` (438 MB) fro
 Settings are tuned on the dev set only; the test set is for the final number. Decisions, results and
 what is real vs. stubbed are in [LOG.md](LOG.md).
 
+## Tests (run before every merge)
+```bash
+pytest                    # everything, including the AI smoke test of the demo bolognese (loads the model)
+pytest -m "not slow"      # fast tests only: parser, CO2e maths, data files, keyword demo path (<1 s)
+```
+- `tests/test_smoke.py` runs the exact demo path (bolognese → match → CO2e → swaps) and checks the total
+  (≈ 15.2 kg with the AI matcher), that beef is matched to minced beef, and that every swap saves CO2e.
+- `tests/test_parse.py` checks grams and names for common lines. Cases marked `xfail` are **known bugs**:
+  when you fix one, pytest fails with XPASS, so remove its `xfail` marker in the same pull request.
+- `tests/test_score_and_data.py` checks the CO2e maths, that no line is silently dropped, and that the
+  data files agree with each other (and that test and dev sets do not overlap).
+- GitHub Actions runs the fast tests on every push and pull request (`.github/workflows/tests.yml`).
+  It cannot run the AI test, so run plain `pytest` locally before merging.
+
 ## Data
 `data/raw/` is **not in git**: everyone downloads it locally with the commands below.
 `data/index/` (generated, so the app runs without the raw downloads), `data/curated/` (our hand-made
