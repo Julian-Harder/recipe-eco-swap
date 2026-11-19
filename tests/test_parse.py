@@ -3,9 +3,8 @@
 Wrong grams give a wrong CO2e even when the food is matched correctly, so every change to the
 parser must keep these passing.
 
-Cases marked xfail are KNOWN BUGS (see LOG.md and the Step 2 plan). They are expected to fail today.
-When someone fixes one, pytest reports it as XPASS and the run fails (strict=True): remove the
-xfail marker in the same pull request so the fix stays protected.
+For a newly found bug, add the case with @pytest.mark.xfail(strict=True): it documents the bug, and when
+someone fixes it pytest reports XPASS and the run fails until the marker is removed, so the fix stays protected.
 """
 import pytest
 
@@ -28,7 +27,6 @@ WORKING = [
     ("2 x 150g salmon fillets", 300, "salmon fillets"),
     ("400g can chopped tomatoes", 400, "can chopped tomatoes"),
     ("2 chicken breasts", 340, "chicken breasts"),
-    ("2 tins chickpeas", 800, "tins chickpeas"),
 ]
 
 
@@ -59,29 +57,38 @@ def test_bare_count_uses_piece_weight():
     assert out["grams"] == pytest.approx(100)
 
 
-# ---- Known bugs: Step 2 fixes these. Remove the marker when a case passes. ----
+# ---- Fixed in Step 2 (2026-11-19): these were known bugs, kept here so they cannot come back. ----
 
-KNOWN_BUGS = [
-    # "can" is not a unit, and "tomato" (120 g) is found before "can" (400 g) in PIECE_GRAMS.
-    pytest.param("1 can chopped tomatoes", 400, "chopped tomatoes", id="can-of-tomatoes"),
-    # "head of" stays in the name, so the matcher sees "head of broccoli"; default 100 g.
+FIXED = [
+    # "can"/"tin" is a 400 g unit, and the canned form is kept for the matcher.
+    pytest.param("1 can chopped tomatoes", 400, "canned chopped tomatoes", id="can-of-tomatoes"),
+    pytest.param("2 tins chickpeas", 800, "canned chickpeas", id="tins"),
+    # "head" depends on the vegetable.
     pytest.param("1 head of broccoli", 350, "broccoli", id="head-of"),
-    # "bunch" is not a unit.
+    pytest.param("1 head garlic", 50, "garlic", id="head-garlic"),
+    # bunch, handful and slice are units.
     pytest.param("1 bunch fresh coriander", 30, "fresh coriander", id="bunch"),
-    # "a handful of" gives no quantity at all.
     pytest.param("a handful of spinach", 30, "spinach", id="handful"),
+    pytest.param("2 slices of bread", 60, "bread", id="slices"),
+    # Trailing notes are not part of the ingredient.
+    pytest.param("3 tbsp pesto (optional)", 45, "pesto", id="optional"),
 ]
 
 
-@pytest.mark.xfail(strict=True, reason="known parser bug, fixed in Step 2")
-@pytest.mark.parametrize("line,grams,name", KNOWN_BUGS)
-def test_known_parser_bugs(line, grams, name):
+@pytest.mark.parametrize("line,grams,name", FIXED)
+def test_fixed_parser_bugs(line, grams, name):
     out = parse_line(line)
-    assert out["grams"] == pytest.approx(grams, rel=0.3)
+    assert out["grams"] == pytest.approx(grams)
     assert out["name"] == name
 
 
-@pytest.mark.xfail(strict=True, reason="known parser bug, fixed in Step 2")
 def test_unknown_amount_name_is_clean():
-    # "to taste" should not be sent to the matcher as part of the name.
-    assert parse_line("salt to taste")["name"] == "salt"
+    # "to taste" is not sent to the matcher as part of the name, and there is still no amount.
+    out = parse_line("salt to taste")
+    assert out["name"] == "salt"
+    assert out["grams"] is None
+
+
+def test_vague_amount_still_asks_the_user():
+    # "a few" is not a unit: no guessed amount, the app asks for grams.
+    assert parse_line("a few sprigs thyme")["grams"] is None

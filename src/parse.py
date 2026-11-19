@@ -5,7 +5,14 @@ import re
 UNIT_GRAMS = {
     "g": 1, "kg": 1000, "ml": 1, "l": 1000,
     "tbsp": 15, "tsp": 5, "cup": 240, "clove": 5, "pinch": 0.5,
+    # Container and handful units. A standard can/tin is 400 g; herbs come in ~30 g bunches.
+    "can": 400, "bunch": 30, "handful": 30, "slice": 30,
 }
+
+# A "head" depends on the vegetable. First keyword match wins; otherwise DEFAULT_HEAD_GRAMS.
+HEAD_GRAMS = {"garlic": 50, "lettuce": 400, "cabbage": 900, "cauliflower": 600, "broccoli": 350,
+              "brocoli": 350, "celery": 450, "fennel": 250}
+DEFAULT_HEAD_GRAMS = 350
 
 UNIT_ALIASES = {
     "g": "g", "gr": "g", "gram": "g", "grams": "g",
@@ -18,13 +25,20 @@ UNIT_ALIASES = {
     "clove": "clove", "cloves": "clove",
     "pinch": "pinch", "pinches": "pinch",
     "piece": "piece", "pieces": "piece", "pc": "piece", "pcs": "piece",
+    "can": "can", "cans": "can", "tin": "can", "tins": "can",
+    "bunch": "bunch", "bunches": "bunch",
+    "handful": "handful", "handfuls": "handful",
+    "slice": "slice", "slices": "slice",
+    "head": "head", "heads": "head",
 }
+
+# Endings that are not part of the ingredient: "salt to taste" -> "salt".
+TRAILING_NOISE = re.compile(r"\s*(?:\(optional\)|,?\s*to taste|,?\s*to serve|,?\s*optional)\s*$")
 
 # Default weight of one item when a line gives a bare count ("2 eggs"). First keyword match wins.
 PIECE_GRAMS = {
     "egg": 50, "garlic": 5, "onion": 150, "shallot": 40, "carrot": 80, "tomato": 120,
     "potato": 170, "pepper": 150, "avocado": 170, "banana": 120, "chicken breast": 170,
-    "slice": 30, "can": 400, "tin": 400,
 }
 DEFAULT_PIECE_GRAMS = 100
 
@@ -53,9 +67,18 @@ def _piece_grams(name: str) -> float:
     return DEFAULT_PIECE_GRAMS
 
 
+def _head_grams(name: str) -> float:
+    for key, grams in HEAD_GRAMS.items():
+        if key in name:
+            return grams
+    return DEFAULT_HEAD_GRAMS
+
+
 def parse_line(line: str) -> dict:
     """Return dict(quantity, unit, name, grams). Unknown amounts give grams=None."""
-    text = line.strip().lower()
+    text = TRAILING_NOISE.sub("", line.strip().lower())
+    # "a handful of spinach" -> "1 handful of spinach". Only before a unit, so "a few sprigs" is untouched.
+    text = re.sub(r"^an?\s+(?=([a-z]+)\b)", lambda m: "1 " if m.group(1) in UNIT_ALIASES else m.group(0), text)
     for sym, val in UNICODE_FRACTIONS.items():
         text = re.sub(rf"(\d)\s*{sym}", lambda m: f"{m.group(1)} {val}", text)
         text = text.replace(sym, str(val))
@@ -84,6 +107,12 @@ def parse_line(line: str) -> dict:
     if unit in (None, "piece"):
         unit = "piece"
         grams = qty * _piece_grams(name)
+    elif unit == "head":
+        grams = qty * _head_grams(name)
+    elif unit == "can":
+        # Keep the form for the matcher: "1 can chopped tomatoes" -> "canned chopped tomatoes".
+        name = name if name.startswith("canned") else f"canned {name}"
+        grams = qty * UNIT_GRAMS["can"]
     else:
         grams = qty * UNIT_GRAMS[unit]
     return {"quantity": qty, "unit": unit, "name": name, "grams": round(grams, 1)}
@@ -91,5 +120,6 @@ def parse_line(line: str) -> dict:
 
 if __name__ == "__main__":
     for s in ["200g minced beef", "1 tbsp olive oil", "2 large eggs", "1/2 cup milk",
-              "1 1/2 kg potatoes", "3 cloves garlic", "400g can chopped tomatoes", "salt to taste"]:
+              "1 1/2 kg potatoes", "3 cloves garlic", "400g can chopped tomatoes", "salt to taste",
+              "1 can chopped tomatoes", "1 head of broccoli", "a handful of spinach"]:
         print(f"{s!r:30} -> {parse_line(s)}")
