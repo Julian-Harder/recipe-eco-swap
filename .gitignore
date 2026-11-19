@@ -11,3 +11,6 @@ data/processed/off_cache/
 # secrets
 .env
 *.token
+
+# tester feedback (may contain names); download it and copy what matters into LOG.md
+data/feedback/

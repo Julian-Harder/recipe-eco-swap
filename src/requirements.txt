@@ -1,0 +1,11 @@
+# Dependencies for the DEPLOYED app only (Streamlit Community Cloud reads the requirements file next
+# to the entrypoint, src/app.py, before the one in the project root). For local work use the root
+# requirements.txt.
+# CPU-only PyTorch: the default Linux wheel pulls ~2.5 GB of GPU libraries the app never uses.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+sentence-transformers
+streamlit
+altair
+pandas
+numpy
