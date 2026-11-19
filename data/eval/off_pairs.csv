@@ -1,0 +1,461 @@
+query,barcode,product_name,brands,gold_codes,off_co2_kg_per_kg
+beef mince,20248369,British beef mince,['Strathvale'],6201,27.1136467309
+beef mince,25427363,Aldi Beef Mince,,6201,27.1136467309
+beef mince,5054781854418,Aberdeen Angus Lean Beef Mince,['Asda'],6250,33.2533457009
+beef mince,01879803,15% fat British Beef Mince,"[""Sainsbury's""]",6201,27.1136467309
+beef mince,9332218001014,Beef mince,['CW Farms'],6252,33.2533457009
+beef mince,20248352,british beef steak mince,['Birchwood Farm'],6201,27.1136467309
+beef mince,5000128594233,Hereford Beef Mince,['Co-operative'],6252,33.2533457009
+beef mince,5000128653145,Lean beef mince,,6250,33.2533457009
+chicken breast,9310645092256,Chicken breast,['Coles'],36016,5.5155941709
+chicken breast,0233841036611,Boneless & Skinless Chicken Breasts,['Kirkland'],36016,5.5155941709
+chicken breast,26125961,Shredded Chicken Breast,"['Hydale', 'Aldi']",36016,5.5155941709
+chicken breast,0261637000003,Chicken Breast Tenders,"['Tyson', 'USDA', 'Walmart']",36016,5.5155941709
+chicken breast,00286558,Chargrilled Chicken Breast Slices,"[""Sainsbury's""]",28963,6.8168935309
+chicken breast,5010525220277,British roast chicken breast,['Morrisons'],28963,6.8168935309
+chicken breast,4088600347851,Cooked Chicken Breast Slices,['Everyday Essentials'],28963,6.8168935309
+chicken breast,0072745548390,Chicken breasts boneless and skinless,['Perdue Harvestland'],36016,5.5155941709
+chicken breast,5057753931001,Chicken breast mini fillets,['Tesco'],36016,5.5155941709
+chicken breast,5053947788017,Flamegrilled Cooked Chicken Breast Chunks,['Tesco'],28963,6.8168935309
+chicken breast,0072562342867,Boneless Skinless Chicken Breast with Rib Meat,['Sager Creek Farms'],36016,5.5155941709
+chicken breast,4056489241447,Simply... Piri Piri chicken breast slices,"['Simply', 'Lidl']",36016,5.5155941709
+chicken breast,0255503927365,"Boneless, Skinless, Split, & Extra Lean Chicken Breasts",['Kirkland Signature'],36016,5.5155941709
+chicken breast,20802301,Roast chicken breast slices,['Birchwood Deli Choice'],28963,6.8168935309
+chicken breast,5057008920361,Chicken breast slices,['Tesco'],28963,6.8168935309
+pork,5054268956284,Pork chops,['Tesco'],28100,10.237694083
+pork,0202238000009,Pork Spareribs,"['Smithfield Fresh Meats Corp', 'Smithfield']",28400,10.237694083
+pork,5053947099427,2 Norfolk pork chops,"['Tesco finest', 'tesco']",28100,10.237694083
+pork,5099839360879,Irish Basted Pork Chops,['Supervalu'],28100,10.237694083
+pork,4056489436454,Viennese pork escalopes,['Braemoor'],28460,10.1393556209
+pork,4088600182766,Breakfast Pork Patties,"['Oakhurst', ' Aldi']",28002,10.1393556209
+pork,5010251804086,British pork loin medallion,['Morrisons'],28003,10.1393556209
+pork,5057008233775,Thin cut pork loin steaks,['Tesco'],28003,10.1393556209
+lamb,5059697722660,Slow cooked lamb shoulder with garlic & rosemary jus,['Tesco'],21504,32.1584790029
+lamb,5000169580684,Lamb Kidneys,"['Essential Waitrose', 'Waitrose']",40407,21.0601210689
+lamb,0282221000933,Lamb Liver,"[""British Salisbury's""]",40102,21.0601210689
+lamb,5032990000017,Lambs liver,,40102,21.0601210689
+lamb,2837385013060,half leg lamb,['Lidl'],21502,40.278450298
+lamb,4088600406640,minted lamb shank,"['specially selected', ' Aldi']",21502,40.278450298
+lamb,0211958001371,Asda Lamb Liver,"[""Asda Butcher's selectuon"", ' Asda']",40102,21.0601210689
+lamb,4088600416908,2 Lamb Shanks,['Aldi'],21502,40.278450298
+lamb,5391520494697,8 Lamb Loin Chops,['Farmfoods'],21500,40.254664604
+lamb,5000169522479,Slow Cooked Lamb Kleftico,['Waitrose'],21504,32.1584790029
+salmon,0059749882965,Salmon Coho,"['Irresistibles', 'The Fish Market']",26037,7.9887198929
+salmon,2000000147586,Wild Alaska Sockeye Salmon,['Wild for Salmon'],26036,5.7664053919
+salmon,9300601765843,Tasmanian Mild Smoked Salmon,['Coles'],26037,7.9887198929
+salmon,5054269414462,2 boneless salmon fillets,['Tesco'],26036,5.7664053919
+salmon,4088600129723,2 Salmon Fillets,['Skellig Bay'],26036,5.7664053919
+salmon,9313107000141,Premium Tasmanian Salmon,['Tassal'],26037,7.9887198929
+salmon,0015292700187,Wild Alaskan Salmon Fillet seasoned,['Moreys Fine Fish and Seafood'],26036,5.7664053919
+salmon,0080000516107,Wild Pink Salmon in Water,['Starkist'],26036,5.7664053919
+salmon,5055946000510,Prime salmon smoked over a balanced blend of selected woods,['Harbour Salmon Co.'],26037,7.9887198929
+salmon,5060229260055,Prime Cured Salmon,['The Scotch Smoked Salmon Company'],26037,7.9887198929
+salmon,5000171010025,Wild Pacific Red Salmon,['John West'],26119,8.948891958
+salmon,5000205043777,Young's - Smoked Salmon Slices,"[""Young's""]",26037,7.9887198929
+salmon,0034507000126,Wild Alaskan Sockeye Smoked Salmon,"['Seabear Wild Salmon', ' SeaBear']",26037,7.9887198929
+salmon,20634667,2 succulent salmon fillets,['lighthouse bay'],26036,5.7664053919
+salmon,5010251697268,Salmon Fillet Fishcakes,['Morrisons'],26036,5.7664053919
+tuna,0722596000928,Fisha Tuna Chunk Light Tuna in Water,['Fisha Tuna'],26245,6.070364394
+tuna,0748485100319,Tuna flakes in oil,['Century Tuna'],26245,6.070364394
+tuna,08067308,Tuna,['StarKist Tuna'],26053,4.3865126309
+tuna,0016101000580,Chunk Light Yellofin Tuna,['Dolores Tuna'],26245,6.070364394
+tuna,0016101000597,Chunk Light Yellowfin Tuna In Water,['Dolores Tuna'],26053,4.3865126309
+tuna,5054073013721,Tuna flakes,['Best-in'],26245,6.070364394
+tuna,0748485100142,Mechado Style Tuna,['General Tuna Corporation'],26053,4.3865126309
+tuna,03341186,Tuna Chunks in Spring Water,['Tesco'],26245,6.070364394
+tuna,0748485102931,Flaked light tuna in oil,['General Tuna Corporation'],26053,4.3865126309
+tuna,0748485102955,Flaked light tuna in water,['General Tuna Corporation'],26053,4.3865126309
+tuna,0829696000534,Wild Albacore Tuna,['Wild Planet'],26053,4.3865126309
+tuna,0748485102948,Hot And Spicy Style Tuna,['General Tuna Corporation'],26053,4.3865126309
+tuna,0748485100111,"Century, Tuna, Adobo Style",['General Tuna Corporation'],26053,4.3865126309
+tuna,4088600019505,Tuna chunks,['Aldi'],26245,6.070364394
+tuna,0748485102979,Afritada tuna in tomato sauce with vegetables,['General Tuna Corporation'],26053,4.3865126309
+prawns,5027891348603,Classic Prawns,['Classic'],10021,21.788482967
+prawns,20284299,Fantail Prawns,"['OceanSea', 'Tesco']",10021,21.788482967
+prawns,4088600227931,North atlantic large prawns,['The fish Monger'],10021,21.788482967
+prawns,9319232023116,De Costi Prawns with Sweet Chilli & Coriander Butter,['De Costi'],10021,21.788482967
+prawns,00228206,Prawns,"[""By sainsbury's""]",10021,21.788482967
+prawns,4088600282787,King prawns,['The Fishmonger'],10021,21.788482967
+prawns,9315822016957,Cooked prawns,['Just Caught'],10021,21.788482967
+prawns,5000128984102,Prawn Cocktail,['Co Op'],10021,21.788482967
+prawns,00239844,Sainsbury's Peeled Prawns,"[""Sainsbury's"", 'Sainsburys', ""By sainsbury's""]",10021,21.788482967
+prawns,9343005000554,Prawn Skewers - Garlic,['Norlax'],10021,21.788482967
+prawns,5057172032686,ASDA King Prawns,['ASDA'],10021,21.788482967
+prawns,9300462104614,Prawns with Coctail Sauce,['John West'],10021,21.788482967
+prawns,5057545677872,Cold Water Prawns,['Bay Fishmongers'],10021,21.788482967
+prawns,4061462631634,Coconut breaded prawns,"[""Let's party""]",10021,21.788482967
+prawns,9338441010052,Australian Tiger Prawns,['Crystal Bay'],10021,21.788482967
+eggs,5060391880136,Organic free range eggs,"[""Duncan's eggs""]",22000,3.1682563777
+eggs,5000326010146,6 free range Eggs for Soldiers,['Eggs for Soldiers'],22000,3.1682563777
+eggs,5060286261408,eggs,['welsh freerange eggs'],22000,3.1682563777
+eggs,5000306004332,6 Free Range Eggs,['Humble Eggs'],22000,3.1682563777
+eggs,5024263012131,12 large eggs,['birdbros'],22000,3.1682563777
+eggs,20717414,6 british eggs,['woodcote'],22000,3.1682563777
+eggs,50378289,Large Eggs,"['The Happy Egg Co', 'Noble Foods']",22000,3.1682563777
+eggs,20635589,15 eggs from caged hends - class A,['SImply...'],22000,3.1682563777
+eggs,5060393410058,6 fresh eggs class A medium,['greenways eggs'],22000,3.1682563777
+eggs,4056489175179,Free range medium eggs,['Woodcote'],22000,3.1682563777
+eggs,5050854476730,Free Range Very Large British Eggs,['Asda'],22000,3.1682563777
+eggs,4088600170596,British Free Range Eggs,['Merevale'],22000,3.1682563777
+eggs,4056489175186,Free Range 6 Large Eggs,['Woodcote'],22000,3.1682563777
+eggs,5018374888303,Large free range eggs,['Tesco'],22000,3.1682563777
+eggs,5010251564867,Free range large eggs,['Morrisons'],22000,3.1682563777
+milk,5000316000256,Moo Milk chocolate flavoured,['Moo Milk'],19122,1.3679156099
+milk,5099603111157,Thurles Fresh Milk 2.5 Litre,['Thurles Milk'],19024,1.486686273
+milk,0027495012769,2% milk,['Hollandia Dairy'],19041,1.306214873
+milk,0865743000393,Organic Almond Milk,['MALK'],18107,0.371613186
+milk,5010652999633,Viva Strawberry Flavour Milk Drink,['milk'],19041,1.306214873
+milk,0074865756648,Reduced fat milk,['Wholesome farms'],19041,1.306214873
+milk,4088600003955,Milk,['Aldi'],19024,1.486686273
+milk,4902777015927,Milk Chocolate,['Meiji'],31004,12.575972694
+milk,5711953003967,Classic Chocolate Milk,['Cocio'],19122,1.3679156099
+milk,5011357000068,Whole Milk,['Moo Milk'],19024,1.486686273
+milk,0856312002771,Fairlife Milk,['Fairlife Milk'],19041,1.306214873
+milk,7622300743536,Dairy milk,['Cadbury'],31004,12.575972694
+milk,0027495032095,Chocolate Milk,,19122,1.3679156099
+milk,9318403500104,Full cream milk,['Canberra Milk'],19024,1.486686273
+milk,0070399105655,milk 2%,,19041,1.306214873
+butter,0860004617808,Majestic butter,['Majestic Butter'],16403,7.7269657339
+butter,5054775188239,Tesco British Salted Block Butter,['Tesco'],16403,7.7269657339
+butter,0047200152504,Unsalted Butter,"['Challenge Butter', ' Challenge']",16400,7.7925481019
+butter,0047200152801,Challenge Butter Salted Butter,"['Challenge Dairy Products Inc.', 'Challange Butter']",16403,7.7269657339
+butter,5391508960664,Butter,['Glenilen Farm'],16400,7.7925481019
+butter,4099100108958,Sweet Cream Butter,"['Countryside Creamery', ' Aldi']",16403,7.7269657339
+butter,5010251834724,All Butter Brioche Loaf,['Morrisons'],7745,3.340259498
+butter,5099839244650,Irish Creamery Butter,['Supervalu'],16403,7.7269657339
+butter,0047200152641,"Salted butter, salted",['Challenge Butter'],16403,7.7269657339
+butter,0047200152566,European Style Butter,['Challenge Butter'],16403,7.7269657339
+butter,9344081000506,Peanut butter,"['The Forage Company', 'The Ridiculously Delicious Nut Butter Company']",15202,3.1918859
+butter,0604565025661,Happy Butter Organic Ghee,['Happy Butter Ghee'],16401,7.7921636139
+butter,5391537440038,Harry's nut butter,['Harry’s Nut Butter'],15202,3.1918859
+butter,0728238633561,Kabayan's Peanut Butter,"[""Kabayan's Peanut Butter""]",15202,3.1918859
+butter,0075450040432,Creamy Peanut Butter,['creamy peanut butter'],15202,3.1918859
+mozzarella,5018374231017,Mozzarella,['Tesco'],19590,4.6130674809
+mozzarella,5010482537265,Grated Mozzarella,['Iceland'],19590,4.6130674809
+mozzarella,5017838822945,Mozzarella Grated,['Galbani'],19590,4.6130674809
+mozzarella,5000128662888,Mozzarella Slices,['Co-Op'],19590,4.6130674809
+mozzarella,5057172135196,Mozzarella sticks,['Asda'],12001,5.1776482009
+mozzarella,01489187,mozzarella cheese ball,"[""Sainsbury's"", ""sainsbury's basics""]",19590,4.6130674809
+mozzarella,4056489335832,Grated mozzarella cheese,['Valley spire'],19590,4.6130674809
+cream,0088365000453,Heavy cream,['Cream-O-Land'],19430,2.419943095
+cream,0894374001516,Cream valley,"[""Sparkman's Cream Valley""]",19430,2.419943095
+cream,0034463000109,English Double Cream,['Devon Cream Company'],19430,2.419943095
+cream,0034463070119,"Devon Cream Company - English Clotted Cream, 6oz (170g)",['Devon Cream Company'],19430,2.419943095
+yogurt,0015000047320,Yogurt Melts Peach,"['Gerber', 'Yogurt Melts']",19575,1.4496980309
+yogurt,0635000047313,Yogurt Melts Mixed Berries,"['Gerber', 'Yogurt Melts']",19575,1.4496980309
+yogurt,0015000047306,Yogurt Melts Strawberry,"['Gerber', 'Yogurt Melts']",19575,1.4496980309
+yogurt,0053600101073,"La yogurt, probiotic plain nonfat yogurt",['La Yogurt'],19593,2.1073558009
+yogurt,0851463005053,Strawberry greek yogurt,['Powerful Yogurt'],19593,2.1073558009
+yogurt,0851463005008,"Powerful yogurt, greek non-fat yogurt, apple cinnamon",['Powerful Yogurt'],19593,2.1073558009
+yogurt,0053600000932,"La yogurt, blended lowfat yogurt, lemon meringue",['La Yogurt'],19592,2.1281156609
+yogurt,0736211663344,Honey Yogurt,['Beijing Yogurt'],19593,2.1073558009
+yogurt,0851463005091,Greek Non-Fat Yogurt,['Powerful Yogurt'],19593,2.1073558009
+yogurt,0713757667135,Plain Yogurt,['Beijing Yogurt'],19593,2.1073558009
+yogurt,0053600000673,Yogurt,['La Yogurt'],19593,2.1073558009
+yogurt,0851463005114,Nonfat Greek Yogurt With Fruit On Bottom,['Powerful Yogurt'],19593,2.1073558009
+yogurt,0851463005015,"Banana greek yogurt, banana",['Powerful Yogurt'],19593,2.1073558009
+yogurt,0851463005022,"Blueberry acai greek yogurt, blueberry acai",['Powerful Yogurt'],19593,2.1073558009
+yogurt,0053600729307,"La yogurt, lowfat yogurt, vanilla",['La Yogurt'],19593,2.1073558009
+tofu,9313727087225,Tofu,['Tofu'],20904,0.664536146
+tofu,0036538812068,Extra Firm Tofu,['Ota Tofu'],20904,0.664536146
+tofu,5060366570789,Craft Tofu Knots,['Tofu Tasty'],20904,0.664536146
+tofu,0760685412924,Organic tofu,['Fresh Tofu Inc.'],20904,0.664536146
+tofu,2000000150623,Eggplant Tofu,['Panda Express'],20904,0.664536146
+tofu,4056489067788,Tofu basil,['Vemondo'],20904,0.664536146
+tofu,5060222530025,Deep Fried Tofu,['Wing Fat Tofu'],20904,0.664536146
+tofu,0076371011174,Premium Tofu Extra Firm,['House Foods'],20904,0.664536146
+tofu,0735673000117,naturally smoked organic tofu,['Tofu Life'],20904,0.664536146
+tofu,2000000150624,Eggplant Tofu - Cub Meal,['Panda Express'],20904,0.664536146
+tofu,0777433001224,Smooth Medium Firm Tofu,['Superior Tofu'],20904,0.664536146
+tofu,0076371013048,Tofu Extra Soft,['House Foods'],20904,0.664536146
+tofu,2028102001334,Pauls - Organic Tofu,['Pauls'],20904,0.664536146
+tofu,5034467001251,Scrambled Tofu,['The Tofoo Co.'],20904,0.664536146
+tofu,5021554987710,Organic tofu imp,['Clearspring'],20904,0.664536146
+lentils,0851552001126,Lentils,['WestStar'],20586,0.907974675
+lentils,0815369015035,Organic Lentils,['Cadia'],20504,0.907974675
+lentils,5010148111037,Red Split Lentils,['Great Scot'],20535,0.907974675
+lentils,5018605582659,Green Lentils,['East End'],20585,0.907974675
+lentils,01167177,Green lentils in water,"[""Sainsbury's""]",20510,1.112293215
+lentils,9310061421906,McKenizie's Red Lentils,"[""McKenizie's""]",20504,0.907974675
+lentils,5000232001108,Lentils in water,['Napolina'],20510,1.112293215
+lentils,5018095011448,Beluga Lentils,['Merchant Gourmet'],20504,0.907974675
+lentils,5018095013008,Puy Lentils,,20585,0.907974675
+lentils,9325566009603,Black Lentils,['Pattu'],20504,0.907974675
+lentils,0687080541304,French Green Lentils,"['Manitou Trading Company', 'Woodland Foods']",20585,0.907974675
+lentils,9313268039615,whole red lentils,,20535,0.907974675
+chickpeas,20445598,chickpeas,['campo largo'],20532,1.928960047
+chickpeas,5000232844217,Chickpeas in water,['Napolina'],20532,1.928960047
+chickpeas,5032722301313,Organic chickpeas in water,['Biona'],20532,1.928960047
+beans,0789968000023,"Heinz, beans with tomato sauce",['Heinz Beans'],20062,1.074524711
+beans,0072273416789,Pinquito Beans,['S&W Beans'],20062,1.074524711
+beans,0072273469631,Yellow Eye Beans,['S&W Beans'],20062,1.074524711
+beans,0072273440166,Jacob's cattle beans,['S&W Beans'],20062,1.074524711
+beans,0072273401631,European soldier beans,['S&W Beans'],20062,1.074524711
+beans,0046900001082,Beans,['Ranch Style'],20062,1.074524711
+beans,4056489458647,Cannellini beans,['Freshona'],20062,1.074524711
+beans,0034700325101,Black Beans,['Allens'],20062,1.074524711
+beans,0041331124379,Pinto Beans,['Goya'],20062,1.074524711
+beans,4088600140872,Mixed Beans,['Four Seasons'],20062,1.074524711
+beans,5000157024886,Heinz Baked Beans,['Heinz'],20062,1.074524711
+beans,0071480000163,Home Baked Beans,"[""Grandma Brown's Beans  Inc.""]",20062,1.074524711
+beans,01642582,Red Kidney beans,"[""Sainsbury's""]",20524,1.191012741
+beans,0071480000064,Saucepan Beans With Bacon,"[""Grandma Brown's Beans  Inc.""]",20062,1.074524711
+beans,04239653325,Light Red Kidney Beans,"[""Mother's Maid""]",20524,1.199735737
+rice,0859278003295,SUPREME  RICE,['Supreme Rice'],9101,2.754298121
+rice,9310140006451,Australian Brown Rice,['Sun Rice'],9102,2.754298121
+rice,5425000197683,Rice Dream chocolate flavour + calcium,['rice dream'],18904,0.3722968562
+rice,0859278003066,White Long Grain Rice,"['Louisiana Rice Mill  Llc', 'Supreme rice']",9101,2.754298121
+rice,9310140011950,Sushi rice,['Sun rice'],9100,2.754298121
+rice,0074401910411,Arborio Rice,['Rice Select'],9101,2.754298121
+rice,0071771086227,Golden Parboiled Rice,"['Blue Ribbon Rice', 'Riviana Foods Inc.', ' Blue Ribbon']",9101,2.754298121
+rice,0074401304302,Brown jasmati rice,['Rice Select'],9119,4.100104371
+rice,9310140007298,Sun Rice - Brown Rice & Quinoa,"['Sun Rice', 'Sunrice']",9101,2.754298121
+rice,9310140282602,Arborio Risotto Rice,['Sun Rice'],9101,2.754298121
+rice,0074401510413,Texmati Light Brown Rice,['Rice Select'],9119,4.100104371
+rice,9310140001142,Sunrice Basmati rice 1kg,['Sun Rice'],9119,4.100104371
+rice,9310140005737,Jasmine rice gluten free,['Sun rice'],9119,4.100104371
+rice,0072806056055,Enriched Parboiled Long Grain Rice,"['Par Excellence', 'Producers Rice Mill']",9102,2.754298121
+rice,0041498170851,white rice,['rice bowl'],9100,2.754298121
+pasta,0620811144276,Ocean adventures pasta,['ocean adventures pasta'],9810,2.144893444
+pasta,8005121030945,Fettuccine all'Uaovo,"['Divella', ""Pasta all'Uovo""]",9821,2.036607771
+bread,8437006001274,Gluten free bread,['Bread Sinclair'],7130,1.805715388
+bread,5011059001592,Chia Wholegrain,"[""Brennan's bread""]",7200,1.753379618
+bread,0072220110807,Organic Bare White Bread,['Naked Bread'],7200,1.753379618
+bread,0076793401003,"The bread garden, arabic pita bread",['The Bread Garden'],7180,0.973894008
+bread,5010092093045,Bread,['Kingsmill'],7200,1.753379618
+bread,0064947130626,White Thin Sandwich Bread,"['Wonder', ' Wonder Bread']",7200,1.753379618
+bread,5060103710379,Czech-slovak Dark Bread,['Polish Village Bread'],7200,1.753379618
+potatoes,20242244,Brambory,['oaklands'],4008,0.4937585761
+onion,20175887,Red onions,['oaklands'],20034,0.389536128
+onion,03267790,Sliced red onion,['Tesco'],20034,0.389536128
+onion,00399494,Sliced Red Onions,"[""Sainsbury's""]",20034,0.389536128
+onion,5051413966310,Large Onions,['Asda'],20034,0.389536128
+onion,5054781557173,Sweet & Crunchy Sliced Red Onion,['Asda'],20034,0.389536128
+onion,9300601164257,Australian red onions,['Coles'],20034,0.389536128
+onion,0059749900157,Onions,,20034,0.389536128
+onion,0033383600024,Onion,['Green Valley'],20034,0.389536128
+onion,4056489762416,Fried onions with bacon flavour,['Søder Garden'],20180,3.697802343
+onion,0059749900133,Yellow Onions,,20034,0.389536128
+onion,9414742962266,Brown Onions,['Woolworths'],20034,0.389536128
+tomato,5060192821802,Heritage Tomato Selection,['The Tomato Stall'],20047_1,0.703394677
+tomato,0814553001090,Tomatoes,['Maestri'],20047_1,0.703394677
+tomato,5391506800016,Tomato puee,,20170,0.669896597
+tomato,8016268000104,Tomato Passata,['Bis'],20170,0.669896597
+tomato,0011110816337,Tomato Paste,['Kroger'],20068,2.820551203
+tomato,0011110815330,Diced tomatoes in tomato juice,['Kroger'],20047_1,0.703394677
+tomato,00381062,Cherry Tomatoes,"[""Sainsbury's""]",20172,0.581556477
+tomato,0002700038064,Crushed Tomatoes,,20048,1.26057703
+tomato,0024000578178,Tomato Sauce,['Del Monte'],20047_1,0.703394677
+tomato,20164072,Chopped tomatoes,['Simply'],20047_1,0.703394677
+tomato,0057836020948,Trio Grape Tomatoes,['Sunset'],20047_1,0.703394677
+tomato,2000000124442,Tomato Ketchup,['faragello'],11008,0.9446753409
+tomato,01897630,Cherry vine tomatoes,"[""Sainsbury's""]",20172,0.581556477
+tomato,5010061001019,Peeled plum tomatoes in a rich tomato juice,['Napolina'],20048,1.26057703
+tomato,00169752,Piccolini Cherry Tomatoes,['M&S'],20172,0.581556477
+carrot,20162818,Carrots,['oaklands'],20009,0.364321099
+carrot,5051898556853,Sliced Carrots,['Tesco'],20009,0.364321099
+carrot,5000169049242,Baby Topped Carrots,['Waitrose'],20009,0.364321099
+carrot,0688267043918,Peeled Baby Carrots,['Giant'],20009,0.364321099
+carrot,0041220939459,Sweet Petite Carrots,['H-E-B'],20009,0.364321099
+carrot,4088600186979,British Carrots,"[""Nature's Pick""]",20009,0.364321099
+carrot,10093901285734,Frozen Peas and Carrots,,20214,0.899100141
+carrot,0600350116194,"Carrots, Sliced - No Salt Added",['Mc.Trader'],20007,1.013931756
+carrot,5000232875518,Baby Carrots in water,['Batchelors'],20009,0.364321099
+carrot,0078783000418,Organic Peeled Carrots,"['Cal-Organic Farms', ' Cal-Organic']",20009,0.364321099
+carrot,5060072990048,Carrot&parsinp,['mash direct'],20261,0.666222878
+carrot,0060383866983,Peas and carrots,['No name'],20093,0.986983375
+carrot,03266915,Grated carrot,['Tesco'],26257,0.9909420649
+carrot,0062639175313,Peas & Carrots,['Western Family'],20093,0.986983375
+carrot,0062608744236,Carrots and Peas,['Harvest Acres'],20093,0.986983375
+bell pepper,0874896005735,Bell Peppers,['Pero Family Farms'],20085,1.183619774
+bell pepper,2000000125287,Bell Peppers (capsicum),"['USDA', 'Houston Food Bank']",20041,1.183619774
+bell pepper,2000000115480,"Bell pepper, red",['Coles'],20087,1.183619774
+bell pepper,0699058010828,Sweet bell peppers,['Mucci Farms'],20041,1.183619774
+bell pepper,00958820,Tri color bell pepper,"[""Trader Joe's""]",20041,1.183619774
+bell pepper,4688,Hothouse Red Bell Pepper,,20087,1.185459461
+bell pepper,0073214005291,Roasted Red Bell Pepper Strips,['Mezzetta'],20275,1.301244283
+bell pepper,0057836000049,Sweet Bell Pepper,['Sunset'],20041,1.183619774
+bell pepper,03231296,3 Pack Mixed Peppers,['Tesco'],20041,1.183619774
+bell pepper,9421002050007,Vine Sweet Mini Peppers,,20041,1.183619774
+bell pepper,0492284202193,Aurora Bites Mini Peppers,['Pure Flavor'],20041,1.183619774
+bell pepper,5000354914843,Bolognese with Sweet Bell Pepper & Courgette,['Loyd Grossman'],11219,1.353842814
+bell pepper,5054781580072,Mixed Peppers,['Asda'],20041,1.183619774
+bell pepper,00223362,Sweet peppers,"[""Sainsbury's""]",20041,1.183619774
+spinach,0041443114244,Spinach,['Margaret Holmes'],20060,0.872927525
+spinach,0099482437442,Organic whole leaf spinach,"['Whole Foods Market', 'Whole Foods']",20083,0.752657617
+spinach,9344372000215,Premium Quality Frozen Chopped Spinach,['Natures Nutrients'],20083,0.752657617
+spinach,9339687075317,Macro Organic Chopped Spinach Leaf Portions,['Macro'],20083,0.752657617
+spinach,0086069350904,Chopped Spinach,['Inventure Foods  Inc.'],20083,0.752657617
+spinach,0011110862914,Leaf spinach,['Simple truth'],20083,0.752657617
+spinach,5000169515471,Whole Leaf Spinach,['Essential Waitrose'],20083,0.752657617
+spinach,9414169992518,frozen chopped spinach,['SB'],20083,0.752657617
+spinach,3218674666676,chopped spinach (no sauce),['Green Giant'],20083,0.752657617
+mushrooms,00381956,Shitake Mushrooms,['Mushrooms'],20105,0.493714399
+mushrooms,9416709000349,Swiss Brown Mushrooms,['Meadow Mushrooms'],20105,0.493714399
+mushrooms,9418751003996,White Button Mushrooms,['Meadow Mushrooms'],20105,0.493714399
+mushrooms,5057172010905,Mushrooms,['Asda'],20105,0.493714399
+mushrooms,4056489746232,Shiitake mushrooms,['Vitasia'],20105,0.493714399
+mushrooms,03222409,Forestiere Mushrooms,"['Tesco', 'Tesco Finest']",20105,0.493714399
+mushrooms,5000128967914,Flat Mushrooms,['Co-operative'],20105,0.493714399
+mushrooms,5014276702471,Dried Winter Shiitake Mushrooms,['Yutaka'],20105,0.493714399
+mushrooms,0781005596636,Pickled Oyster Mushrooms,['OGM! Ohau Gourmet Mushrooms'],20105,0.493714399
+mushrooms,0080736103961,Straw Mushrooms Medium Peeled,['Caravelle'],20105,0.493714399
+mushrooms,0041224441408,Sliced Mushrooms,['Roland'],20105,0.493714399
+mushrooms,5000354156106,Tomato & Wild Mushroom,['Loyd Grossman'],11177,1.214852885
+garlic,00221177,Garlic Granules,"[""Sainsbury's""]",11023,0.750274278
+garlic,5060042941797,Black Garlic Cloves,['The Garlic Farm'],11000,0.358042894
+garlic,0794376100036,Crushed Garlic,"['Garlic & Herbs Dorot', 'Dorot Gardens']",11000,0.358042894
+garlic,01795257,Garlic bulbs,"[""Sainsbury's""]",11000,0.358042894
+garlic,20719562,Garlic Baguettes,['chef select'],7001,0.686664257
+garlic,0033844003357,Minced Garlic,['Badia'],11000,0.358042894
+garlic,0718940000010,Fresh Peeled Garlic,['Garland Foods'],11000,0.358042894
+garlic,5000157145260,Vegan Mayo Garlic Aioli,['Heinz'],11168,1.4128193109
+garlic,9300657021825,Garlic Lovers Aioli,['Heinz'],11168,1.4128193109
+garlic,5391510684732,Roasted Garlic & Herb Aioli,['The Galway Kitchen'],11168,1.4128193109
+garlic,50191390,Garlic salt,['Schwartz'],11017,0.604063904
+garlic,0786409000017,Garlic Expressions,['Garlic Expressions'],11187,2.5331309009
+garlic,0780982001003,Butter & Garlic,"[""Olivia's Croutons""]",38500,0.994373608
+olive oil,0634039000689,Organic Extra Virgin Olive Oil,['O Olive Oil'],17270,0.982987394
+olive oil,0634039000702,California Organic Extra Virgin Olive Oil,['O Olive Oil'],17270,0.982987394
+olive oil,6194620845616,Extra Virgin Olive Oil,['Delice De Carthage'],17270,0.982987394
+olive oil,9310175700096,Moro Light Taste Olive Oil,['Moro'],17270,0.982987394
+olive oil,8410179100036,Extra Virgin Olive Oil Original,['Borges'],17270,0.982987394
+olive oil,9310175700102,Primero extra virgin olive oil,['Moro'],17270,0.982987394
+olive oil,9310175701178,Moro Extra Virgin Olive Oil,['Moro'],17270,0.982987394
+olive oil,0060383985486,No Name 100% Extra Virgin Olive Oil,"['Sans nom', 'No Name']",17270,0.982987394
+olive oil,0041790214260,Bertolli rich extra virgin olive oil,"['Bertolli', 'Deoleo Usa  Inc.']",17270,0.982987394
+olive oil,8410660049790,Olive oil mix,['La española'],17270,0.982987394
+olive oil,8033237190307,Truffle flavoured extra virgin olive oil,['Provenzani'],17270,0.982987394
+olive oil,0745125850993,Alizia Extra Virgin Olive Oil,['Alizia'],17270,0.982987394
+olive oil,2000000060556,Italian Extra Virgin Olive Oil Produce of Italy,['Tesco'],17270,0.982987394
+olive oil,0060383985493,100% extra virgin olive oil,['No Name'],17270,0.982987394
+olive oil,2000000129189,Australian Organic Extra Virgin Olive Oil,['Source Bulk Foods'],17270,0.982987394
+sunflower oil,8007150909421,Sunflower oil,['Olitalia'],17440,2.574237481
+sunflower oil,0628667201167,Pure Sunflower Oil,['Authentic Menu'],17440,2.574237481
+sunflower oil,0786969010273,Organic Sunflower Oil,['Napa Valley Naturals'],17440,2.574237481
+sunflower oil,5000442007617,Golden sunflower oil cooking spray,['Frylight'],17440,2.574237481
+sunflower oil,8888025172955,Daisy Sunflower Oil,['Daisy'],17440,2.574237481
+sunflower oil,20046439,Mackerel fillets in sunflower oil,['NiXe'],26123,8.465285708
+sunflower oil,8906035030055,Refined Sunflower Oil,['Freedom'],17440,2.574237481
+sugar,0070090304104,Sugar,['Crystal Sugar'],31016,0.6123659626
+sugar,0072100066002,Dark Brown Sugar,['Imperial Sugar'],31017,1.1069963326
+sugar,0072100047001,Light Brown Sugar,['Imperial Sugar'],31016,0.6123659626
+sugar,0072100024002,Extra Fine Granulated Pure Cane Sugar,['Imperial Sugar'],31016,0.6123659626
+sugar,0072100036005,10X Powdered Sugar,['Imperial Sugar'],31016,0.6123659626
+sugar,0049200007259,Pure Cane Granulated Sugar,['Domino Sugar'],31016,0.6123659626
+sugar,0076400005006,Fine granulated sugar,['Michigan Sugar Co.'],31016,0.6123659626
+sugar,0041702400002,"Big Chief Sugar, Pure Fine Granulated Sugar",['Michigan Sugar Co.'],31016,0.6123659626
+sugar,0043000001202,Sugar Free Syrup,['Log Cabin'],18058,0.10203292814
+sugar,0086631005850,Pure Sugar,['Sugar Foods Corporation'],31016,0.6123659626
+sugar,0861759000051,Liquid sugar,['Cane Sugar  Llc'],31016,0.6123659626
+sugar,5057753974466,Granulated Sugar,['Tesco'],31016,0.6123659626
+sugar,5010067334654,Icing Sugar,['Silver Spoon'],31016,0.6123659626
+sugar,9313010374957,Raw sugar,['CSR'],31017,1.1069963326
+sugar,0049200049013,Turbinado Cane Sugar,"['Domino', '  Domino Sugar Corporation']",31017,1.1069963326
+flour,0076929001053,White whole Wheat Flour,"['Hudson Cream', 'The Stafford County Flour Mills Co.']",9410,0.7186694661
+flour,0071012041053,Flour,['King Arthur Flour'],9440,0.7187796136
+flour,5060062060133,Cotswold Crunch strong flour mix,['Matthews Cotswold Flour'],9436,0.7187796136
+flour,0402154320001,All purpose flour,['The Church of Latter-day Saints'],9410,0.7186694661
+flour,5000119004000,Plain Flour,['Tesco'],9440,0.7187796136
+flour,0071012081011,100% Organic Whole Wheat Flour,['King Arthur Flour'],9440,0.7187796136
+flour,5013635701667,Superfine Gram Flour,['KTC'],9580,0.9011279662
+flour,5010024113018,Self raising flour,['McDougalls'],9440,0.7187796136
+flour,0085425000781,All Purpose Premium Flour,['Panhandle Milling'],9550,0.7197920862
+flour,5011766010078,Wholemeal Spelt Flour,['Doves Farm'],9480,1.1523034362
+flour,5000318110960,Home pride plain flour,['Homepride'],9440,0.7187796136
+flour,5000119004024,Strong white flour,['Tesco'],9440,0.7187796136
+flour,0013300606810,Enriched Cake Flour Bleached,['Pillsbury Softasilk'],9440,0.7187796136
+flour,29075966,Plain Wheat Flour,"['M&S', 'Marks & Spencer']",9440,0.7187796136
+flour,00088886,British Self Raising Flour,['Marks & Spencer'],9437,0.7187796136
+oats,05867370,Oats,['Quaker Oats'],9310,1.15082879
+oats,5060362071709,Oat drink,['plenish'],18905,0.535268481
+oats,5054781873754,Long life oat,['Asda'],18905,0.535268481
+oats,5411188115366,Oat,['Alpro'],18905,0.535268481
+oats,9300601297337,Coles Smart Buy Oat Bran,['Coles'],9640,0.6506547404
+oats,7394376620713,whole oat drink,['oatly!'],18905,0.535268481
+oats,7394376621482,Barista Edition Oat Drink,['Oatly'],18905,0.535268481
+oats,0030000012000,Quick 1-minute Oats imp,['Quaker Oats'],9311,1.1534012762
+oats,5711953121234,Nordic Oat Drink,"['Jörd', ' Arla']",18905,0.535268481
+oats,5057172086399,British Porridge Oats,['Asda'],9310,1.15082879
+oats,0030000010402,Old Fashioned Oats,"['Quaker Oats', ' Quaker']",9311,1.1534012762
+oats,7394376123337,The Original Organic Oat Drink imp,['Oatly'],18905,0.535268481
+oats,7394376616228,Oat Drink Barista Edition,['Oatly'],18905,0.535268481
+oats,5060120286222,Oat milk no sugars imp,['Rude health'],18905,0.535268481
+oats,0055577102459,Oat Bran,['Quaker'],9640,0.6506547404
+oat milk,9421903594204,Boring Oat Milk,['Boring Oat Milk'],18905,0.535268481
+oat milk,0190646630119,Oat-milk cocolate,['Oatly'],18905,0.535268481
+oat milk,5060674960852,Oat Milk Powder,['Mighty'],18905,0.535268481
+oat milk,4056489518624,Barista Oat milk - Vemondo,['Vemondo'],18905,0.535268481
+oat milk,0194346193837,Oat Milk (Extra Creamy),['Better Goods'],18905,0.535268481
+oat milk,5449000307019,Oat Milk,,18905,0.535268481
+soy milk,9300633473648,Original soy milk,['Woolworths'],18900,0.445649559
+soy milk,9312336049013,Bonsoy Soy Milk,['Spiral Foods'],18900,0.445649559
+soy milk,9312231221101,Organic Nature's Soy Milk No Added Caned Sugar Original imp,['PureHarvest'],18900,0.445649559
+soy milk,9310232100371,Chocolate Soy Milk,['Vitasoy'],18900,0.445649559
+soy milk,9310246048539,Soy milk,['Community Co'],18900,0.445649559
+soy milk,9341650000431,Coffee soy milk,['Vitasoy'],18900,0.445649559
+soy milk,0782758331321,Organic Soy Milk (vainilla),['SUNRICH'],18900,0.445649559
+soy milk,0063667301859,Organic Fortified Soy Beverage - Chocolate,['natura'],18900,0.445649559
+soy milk,8423352869040,Nature Soy Milk,,18900,0.445649559
+soy milk,9310645260976,organic soy milk,['Coles'],18900,0.445649559
+soy milk,5411188083108,Soy Milk (sweetened),['Soya Soleil'],18900,0.445649559
+soy milk,00670104,Soy Milk - Organic,"[""Trader Joe's""]",18900,0.445649559
+soy milk,26319247,Regular Soy Milk,,18900,0.445649559
+soy milk,9415077415939,Lite soy milk,['Pams'],18900,0.445649559
+soy milk,8682009080096,Soy milk no sugar,['Fomilk'],18900,0.445649559
+almonds,0041570130575,Almonds,"['Blue Diamond Almonds', 'Blue Diamond Growers']",15000,2.688497741
+almonds,10254868,Whole almonds,['Whole Almonds'],15000,2.688497741
+almonds,57085180,Almonds Roasted Salted,['Blue Diamond Almonds'],15042,2.688497741
+almonds,0041570052006,Roasted salted almonds,['Blue Diamond Almonds'],15042,2.688497741
+almonds,0014113210317,Roasted & Salted Almonds,['Wonderful Pistachios & Almonds Llc'],15042,2.688497741
+almonds,36050096,Almond milk,['Blue Diamond Almonds'],18107,0.371613186
+almonds,0021130293483,Whole roasted & salted almonds,['The Snack Artist'],15042,2.688497741
+almonds,04154891,Unsweetened Original Almond Milk,"['Almond Breeze', 'Blue Diamond Almonds', 'Blue Diamond Growers Corporation']",18107,0.371613186
+almonds,0041570131305,Almonds On-the-Go Lightly Salted,['Blue Diamond Almonds'],15000,2.688497741
+almonds,0628915168358,almond dark chocolate,['Great Value'],31070,16.878582384
+almonds,0041570109168,"Vanilla Unsweetened Almond Beverage, Fortified",['Blue Diamond Almonds'],18107,0.371613186
+almonds,0041570081013,Blue Diamond Almond Breeze Unsweetened,['Blue Diamond Almonds'],18107,0.371613186
+almonds,0041570052730,Vanilla Almond Bev. Shelf-stable.,['Blue Diamond Almonds'],18107,0.371613186
+almonds,50321940,Awesome Almonds,['Holland and Barrett'],15000,2.688497741
+almonds,0037466019017,Almond Swiss Classic,['Lindt'],31018,12.575972694
+chocolate,0898456001814,Dark Chocolate Sampler,['Taza Chocolate'],31005,16.878582384
+chocolate,0898456001210,Vanilla Dark Taza Chocolate,['Taza Chocolate'],31005,16.878582384
+chocolate,0856072004541,Super Dark Taza Chocolate,['Taza Chocolate'],31005,16.878582384
+chocolate,0898456001241,Guajillo Chili Dark Chocolate Mexicano,['Taza Chocolate'],31005,16.878582384
+chocolate,0747599607257,Chocolate intense dark bar,"['Ghirardelli', ' Ghirardelli Chocolate', '  Ghirardelli Chocolate Company']",31005,16.878582384
+chocolate,5034660516170,Cadbury Chocolate Bournville Dark Chocolate,,31005,16.878582384
+chocolate,0628915168327,Hazelnut Milk Chocolate,['Great Value'],31018,12.575972694
+chocolate,0728488820117,Cookies & Creme Blonde Oatmilk Chocolate Bar,['ShawZ Chocolate'],31010,11.175699174
+chocolate,0089950700062,"Fresco chocolate, dark chocolate",['Fresco Chocolate'],31005,16.878582384
+chocolate,0413907757104,"Chocolate amatller, dark chocolate",['Chocolate Amatller'],31005,16.878582384
+chocolate,0037014242317,48% Milk Chocolate (Otter),['Endangered Species Chocolate'],31004,12.575972694
+coffee,0094922417824,Guatemala Guaya'b Coffee,['Gimme Coffee'],18003,9.99416985
+coffee,0737534146545,Pura Vida Organic Seasonal Coffee,['Rise Up Coffee Roasters'],18003,9.99416985
+coffee,0035700075508,Coffee & Chicory,['Community Coffee'],18003,9.99416985
+coffee,9310175131180,The Darkness Coffee Beans,['DC Coffee'],18003,9.99416985
+coffee,0858563000858,Vermont Coffee Company,['vermont coffee company'],18003,9.99416985
+coffee,4099100193503,Black Unsweetened Cold Brew Coffee Beverage,['Barissimo Coffee'],18004,0.59422464326
+coffee,0782605001155,100% Hawaiian Coffee Swiss Water Decaf Ground Coffee,['Kauai Coffee'],18003,9.99416985
+coffee,0858228002685,Oyster Reef Coffee,['Chesapeake Coffee Roasters'],18003,9.99416985
+avocado,0100859207003020,Avocado,['Vilita'],13004,1.4833032869999998
+avocado,93469685,Australian Avocado,['Australian Avocado'],13004,1.480470233
+avocado,23066755,Ready to Eat Avocados,['Asda'],13004,1.480470233
+avocado,10096376,Ripe and Ready Avocados,['Tesco'],13004,1.480470233
+avocado,2000000125307,Fresh Avocado,"['USDA', 'Houston Food Bank']",13004,1.480470233
+avocado,01600322,Ripe & Ready Medium Avocados,"[""Sainsbury's""]",13004,1.480470233
+avocado,0616112313886,Organic Smashed Avocado with Sea Salt,['Wholly Avocado'],25620,1.4658918109
+avocado,25395174,Avocados,['Worldwide'],13004,1.480470233
+avocado,4056489594727,Smashed avocado,['meadow fresh'],13004,1.480470233
+avocado,0854319008536,Avocado Oil Spray,"['AvoPacific', 'AvoPacific Oils']",17100,4.874170443
+banana,5010251953760,Bananas,['Morrisons'],53100,0.724168392
+banana,01129441,Banana,['fairtrade'],53100,0.724168392
+banana,0857682003009,Organic Original Chewy Banana Bites,['Barnana'],13089,2.165929968
+banana,03341148,Organic bananas,['Tesco'],53100,0.724168392
+banana,5057172029457,Organic Fairtrade Bananas,['Asda'],53100,0.724168392
+banana,5057172014873,Bananas Garden Gang,['Asda'],53100,0.724168392
+banana,01833317,Fairtrade bananas,"[""Sainsbury's""]",53100,0.724168392
+banana,00717524111128,Del Monte Banana from Guatemala,['Del Monte'],53100,0.7255912170000001
+banana,0765744000005,bananes plantains,['Big Banana'],53100,0.724168392
+banana,4088600544618,dried bananas,['The Foodie Market'],13089,2.165929968
+banana,0765744000067,Sweet Plantain Slices/Plátanos Maduros,"['Acento Latino', ' Big Banana']",53100,0.724168392
+banana,4099100148985,Banana chips,['Southern Grove'],13089,2.165929968
