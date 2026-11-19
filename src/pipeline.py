@@ -75,7 +75,9 @@ def run(recipe_text: str, matcher=None, foods=None, categories=None, swaps=None)
             "category": swap_category(code, categories, foods, keyword),
         })
     scored, total = score_recipe(lines)
-    return scored, total, suggest_swaps(scored, swaps, categories)
+    suggestions = suggest_swaps(scored, swaps, categories, recipe_text=recipe_text, foods=foods,
+                                similar=getattr(matcher, "similar_foods", None))
+    return scored, total, suggestions
 
 
 if __name__ == "__main__":

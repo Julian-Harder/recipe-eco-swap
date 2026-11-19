@@ -32,6 +32,9 @@ def check_demo_result(scored, total, swaps, expected_total, tolerance):
     assert any(s["from"] == "beef mince" for s in swaps)
     assert all(s["kg_co2e_saved"] > 0 for s in swaps)
 
+    # 5. The parmesan grated on top is not replaced by yogurt (dish-aware swaps, LOG 2026-11-19).
+    assert not any("parmesan" in s["line"] and s["to"] == "yogurt" for s in swaps)
+
 
 def test_demo_path_keyword_baseline(foods, categories, swaps):
     scored, total, suggestions = run(SAMPLE_RECIPE, KeywordMatcher(categories),

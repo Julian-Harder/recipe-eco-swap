@@ -42,7 +42,7 @@ with st.sidebar:
         "2. An embedding model finds the 5 closest of 1,615 Agribalyse ingredients.\n"
         "3. You confirm or correct the match.\n"
         "4. Weight × Agribalyse kg CO2e per kg gives the footprint.\n"
-        "5. Curated swaps suggest lower-impact alternatives."
+        "5. Swaps: hand-picked ones that fit the dish, plus similar lower-impact foods found by the model."
     )
     st.markdown(
         f"**Matcher:** `{matcher.model_name}`. It picks a food on its own when its score is "
@@ -115,7 +115,7 @@ for i, line in enumerate(lines):
 
 scored, total = score_recipe(matched)
 counted = scored.dropna(subset=["kg_co2e"]).sort_values("kg_co2e", ascending=False)
-suggestions = suggest_swaps(counted, swaps, categories)
+suggestions = suggest_swaps(counted, swaps, categories, recipe_text=recipe, foods=foods, similar=matcher.similar_foods)
 
 # 2. Footprint
 st.subheader("2. Footprint")
@@ -165,7 +165,8 @@ if not suggestions:
     st.write("No curated swaps for these ingredients yet.")
 for s in suggestions:
     note = f" *{s['notes']}*" if isinstance(s["notes"], str) and s["notes"] else ""
-    st.markdown(f"- **{s['line']}**: {s['from']} → **{s['to']}** saves ≈ {s['kg_co2e_saved']:.1f} kg CO2e "
+    tag = " :blue[AI suggestion]" if s.get("source") == "ai" else ""
+    st.markdown(f"- **{s['line']}**: {s['from']} → **{s['to']}**{tag} saves ≈ {s['kg_co2e_saved']:.1f} kg CO2e "
                 f"({s['kg_co2e_before']:.1f} → {s['kg_co2e_after']:.1f}). {s['reason']}.{note}")
 st.caption("Savings assume the same weight of the replacement, which is a simplification (see each swap's note).")
 

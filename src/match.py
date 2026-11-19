@@ -156,6 +156,10 @@ class AIMatcher:
                 scores = scores - self.processed_penalty * self._processed
         return scores
 
+    def similar_foods(self, code: str) -> np.ndarray:
+        """Cosine similarity of every food in the index to the food `code` (aligned with foods.index)."""
+        return self._vectors @ self._vectors[self._codes.index(code)]
+
     def top_k(self, name: str, k: int = 5) -> list[tuple[str, float]]:
         """The k best-scoring foods as (code, score), best first."""
         scores = self.scores(name)

@@ -96,7 +96,8 @@ Notes:
 - `src/match.py` `KeywordMatcher` (baseline) and `AIMatcher` (food embedding model + word overlap); both have `match_food(name) -> (code, score)`
 - `src/compare_matchers.py` model/settings comparison on the dev set
 - `src/score.py` `score_recipe(lines)` -> kg CO2e per ingredient + total
-- `src/swaps.py` `suggest_swaps(...)` -> swaps with CO2 saved, biggest emitters first
+- `src/swaps.py` `suggest_swaps(...)` -> curated swaps that fit the dish + AI swaps (same food group, lower CO2e), biggest emitters first
+- `src/review_swaps.py` writes the swaps of 7 recipes to `data/eval/swap_review.csv` for a human y/n review
 - `src/pipeline.py` runs everything end to end on a sample recipe (command line)
 - `src/app.py` Streamlit UI: top-5 food dropdown per line, editable grams, footprint chart, swaps, feedback form
 - `src/feedback.py` saves tester feedback to `data/feedback/feedback.csv` (not in git)
