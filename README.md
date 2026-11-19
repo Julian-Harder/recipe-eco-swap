@@ -18,6 +18,7 @@ streamlit run src/app.py           # the web app: paste a recipe, confirm matche
 python src/pipeline.py             # sample recipe -> matched foods, CO2e per ingredient, total, swaps (AI matcher)
 python src/pipeline.py --keyword   # same, with the keyword baseline
 python src/evaluate.py             # keyword baseline vs AI matcher on the test set (add --dev for the dev set)
+python src/off_validate.py --collect  # Open Food Facts products as an external check (slow the first time, cached)
 python src/compare_matchers.py     # compare models/settings on the dev set (slow: downloads ~1 GB of models)
 python src/build_index.py          # only when the raw data changes: rebuilds data/index/foods.csv
 ```
@@ -90,6 +91,7 @@ Notes:
 - `src/build_index.py` builds `data/index/foods.csv` from Agribalyse + CIQUAL
 - `src/foods.py` `load_foods()` and `same_food(a, b)`, the near-duplicate rule (calories within 10%)
 - `src/off_api.py` cached Open Food Facts API client (barcode lookup + search)
+- `src/off_validate.py` external validation: OFF products' own Agribalyse links vs our matcher; saves `data/eval/off_pairs.csv`
 - `src/parse.py` `parse_line("200g minced beef")` -> quantity, unit, name, grams
 - `src/match.py` `KeywordMatcher` (baseline) and `AIMatcher` (food embedding model + word overlap); both have `match_food(name) -> (code, score)`
 - `src/compare_matchers.py` model/settings comparison on the dev set

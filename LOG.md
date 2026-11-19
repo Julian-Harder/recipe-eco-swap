@@ -4,6 +4,42 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Open Food Facts from Stub to Real
+
+### Problem
+Open Food Facts (OFF) is the course's required data source, but the pipeline only used OFF's copy of the
+CIQUAL calorie table. `off_api.py` worked (cached barcode lookup and search) and nothing called it.
+
+### Decision: two uses that need no fine-tuning
+1. **External validation (`src/off_validate.py`).** OFF contributors link products to an Agribalyse food (that is
+   how OFF computes the Eco-Score). Those links were made by other people on real, branded product names, so
+   they are an independent check of our matcher, and harder than recipe lines.
+   - Queries: the names of our 41 curated categories, fixed before looking at any result.
+   - Kept: products sold in English-speaking countries (the model reads English), with a name and an
+     Agribalyse code that is in our index; at most 15 per query; duplicate names dropped.
+   - Saved to `data/eval/off_pairs.csv` (product name → Agribalyse code), which is also the training data for
+     a later fine-tuning step.
+   - Scored like the other sets: top-1 with the 0.80 threshold (no answer counts as wrong) and top 5.
+2. **Barcode lookup in the app (section 4).** The user types a barcode; the app shows the product, OFF's
+   Agribalyse food, its kg CO2e per kg and Eco-Score, next to what our matcher picks from the product name,
+   and says whether they agree. Errors (unknown barcode, OFF unreachable) are shown, not raised.
+
+### Tests
+`tests/test_off.py` (no network): the Agribalyse link is read from OFF's JSON (direct or proxy code), the
+English name is preferred, and pair selection drops other markets, unknown codes, missing names and
+duplicates; scoring counts right / wrong / no answer. The app was run headless with a stand-in OFF client for a
+found product, an unknown barcode and a network error. 68 fast tests pass. CI now installs `requests`.
+
+### Real / stub / faked: change
+| Component | Status | Notes |
+|---|---|---|
+| Open Food Facts | **Real** | external validation set + barcode lookup in the app (was: Stub) |
+
+### Results
+[to be added: python src/off_validate.py --collect]
+
+---
+
 ## 2026-11-19: Holdout set, the number we trust
 
 ### Why

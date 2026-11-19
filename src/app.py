@@ -13,7 +13,7 @@ import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 
 from feedback import read_feedback, save_feedback  # noqa: E402
-from foods import load_foods  # noqa: E402
+from foods import load_foods, same_food  # noqa: E402
 from match import AIMatcher, KeywordMatcher, load_categories  # noqa: E402
 from parse import parse_line  # noqa: E402
 from pipeline import SAMPLE_RECIPE, swap_category  # noqa: E402
@@ -169,9 +169,56 @@ for s in suggestions:
                 f"({s['kg_co2e_before']:.1f} → {s['kg_co2e_after']:.1f}). {s['reason']}.{note}")
 st.caption("Savings assume the same weight of the replacement, which is a simplification (see each swap's note).")
 
-# 4. Feedback from testers (level 4: someone outside the team used it, feedback is logged)
+# 4. A real packaged product from Open Food Facts, compared with our category-level estimate
+st.subheader("4. Check a packaged product (Open Food Facts)")
+st.caption("Type the barcode of a product you have at home. Open Food Facts contributors link products to an "
+           "Agribalyse food; we show their figure next to what our matcher picks from the product's name.")
+barcode = st.text_input("Barcode", placeholder="e.g. 5000159484695", max_chars=14)
+if barcode.strip():
+    from off_api import get_product
+
+    try:
+        product = get_product(barcode)
+    except Exception as exc:  # network down, rate limit, OFF unavailable
+        product = None
+        st.error(f"Could not reach Open Food Facts right now ({type(exc).__name__}). Try again in a minute.")
+    else:
+        if product is None:
+            st.warning("Open Food Facts does not know this barcode.")
+    if product:
+        name = product.get("product_name_en") or product.get("product_name") or "(no name)"
+        st.markdown(f"**{name}**" + (f" · {product['brands']}" if product.get("brands") else ""))
+        c1, c2 = st.columns(2)
+        off_code, off_co2 = product.get("agribalyse_code"), product.get("co2_total_kg_per_kg")
+        with c1:
+            st.markdown("**Open Food Facts says**")
+            if off_code:
+                label = foods.at[off_code, "name"] if off_code in foods.index else product.get("agribalyse_name_en")
+                st.write(f"Agribalyse food: {label or off_code}")
+                if off_co2 is not None:
+                    st.write(f"≈ {float(off_co2):.2f} kg CO2e per kg")
+            else:
+                st.write("No Agribalyse link for this product yet.")
+            if product.get("eco_grade"):
+                st.write(f"Eco-Score: {str(product['eco_grade']).upper()}")
+        with c2:
+            st.markdown("**Our matcher picks (from the name)**")
+            code, match_score = matcher.match_food(name) if name != "(no name)" else (None, 0.0)
+            if code:
+                st.write(f"{foods.at[code, 'name']} (score {match_score:.2f})")
+                st.write(f"≈ {foods.at[code, 'co2_kg_per_kg']:.2f} kg CO2e per kg")
+            else:
+                top = matcher.top_k(name, 1)[0] if name != "(no name)" else None
+                st.write("Not confident" + (f" (best guess: {foods.at[top[0], 'name']})" if top else ""))
+        if off_code and code:
+            if same_food(code, off_code, foods):
+                st.success("Same Agribalyse food as Open Food Facts.")
+            else:
+                st.info("Different food from Open Food Facts: product names often carry brand or marketing words.")
+
+# 5. Feedback from testers (level 4: someone outside the team used it, feedback is logged)
 st.divider()
-st.subheader("4. Tell us what you think")
+st.subheader("5. Tell us what you think")
 st.caption("You are testing a student prototype (ESADE, Group 8). Your answers help us improve it.")
 with st.form("feedback", clear_on_submit=True):
     useful = st.radio("Would this help you choose lower-impact ingredients?", ["yes", "maybe", "no"],
