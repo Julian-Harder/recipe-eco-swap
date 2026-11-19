@@ -4,6 +4,40 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Swaps that fit the dish, and AI swaps for any food
+
+### Problem
+Swaps were 21 hand-picked rules between our 41 categories, blind to the dish: the demo bolognese suggested
+replacing the grated parmesan with yogurt. Most matched foods (salmon, rice, any cheese outside the categories)
+got no swap at all. And swaps were the one part of the pipeline with no AI in it.
+
+### Decision (`src/swaps.py`)
+1. **Curated swaps keep priority** (they can cross food groups, e.g. beef mince → lentils, which no similarity
+   search would find) but get a `not_when` column in `data/curated/swaps.csv`: words that make the swap wrong
+   for the dish, checked against the line and the whole recipe. Five swaps have one: hard cheese → yogurt
+   (grated, parmesan, topping, pizza, lasagne, bolognese…), butter → olive oil (cakes, pastry, icing…),
+   cream → yogurt / oat milk (whipped, panna cotta, ice cream), rice → potatoes (sushi, risotto, paella…).
+2. **AI swaps** fill the remaining places (up to 2 per ingredient): foods from the **same Agribalyse sub-group**
+   (meats, cheeses, fish, cereals…) with **at least 30% lower CO2e per kg**, ranked by the embedding model's
+   similarity to the original food (`AIMatcher.similar_foods`). Offal and processed or cooked forms are left
+   out unless the original is one, and a swap must save at least 0.1 kg CO2e in the recipe.
+   The app tags them "AI suggestion" and asks the user to check they suit the dish.
+3. The keyword pipeline (no model) shows curated swaps only.
+
+### Tests
+`tests/test_swaps.py`: the `not_when` rule, no yogurt for parmesan on a bolognese (but yes for cheddar in a dip),
+AI candidates stay in the sub-group with ≥ 30% lower CO2e and no offal or cooked forms, AI swaps fill in when
+there is no curated one, tiny savings are dropped. The smoke test now also checks the bolognese gets no
+parmesan → yogurt swap. 74 fast tests pass.
+
+### Evaluation: human review
+There is no ground truth for "a good swap", so a person judges them. `src/review_swaps.py` runs the full
+pipeline on seven varied recipes and writes every swap to `data/eval/swap_review.csv`; each swap is marked
+sensible (y) or not (n) as a home cook would, then `--summary` gives the share per source (curated / AI).
+Results: [to be added]
+
+---
+
 ## 2026-11-19: Open Food Facts from Stub to Real
 
 ### Problem
