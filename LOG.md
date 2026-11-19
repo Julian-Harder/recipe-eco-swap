@@ -4,6 +4,50 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Synonyms and typo correction before the AI matcher
+
+### Problem
+After the parser fixes, almost every remaining AI miss is a British/American word or a typo:
+aubergine, mince, scallions, lardons, single/double cream (test); arugula, cilantro, garbanzo beans,
+cornflour (dev); brocoli, chiken, parmesean, mozarella, spinnach. Agribalyse is written in its own
+wording ("Eggplant", "Chick pea", "Lardoons", "Maize/corn starch") and the model compares wording.
+
+### Decision (`src/normalize.py`, used by `AIMatcher` when `normalize=True`, the default)
+1. **Synonyms:** about 70 British/American kitchen words and phrases mapped to Agribalyse wording,
+   taken from general UK/US food glossaries (vegetables, pulses, meat, dairy, baking). One pass,
+   longest phrase first, whole words only, so a replacement is never replaced again.
+2. **Typo correction:** a word of 5+ letters that is not in the vocabulary (all words of the 1,615 food
+   names + synonym targets + common recipe words) becomes its closest vocabulary word if the difflib
+   similarity is ≥ 0.85. Plurals of known words are left alone. Synonyms run first, so "scallions" is
+   never corrected to "scallops".
+3. The keyword baseline is unchanged: it stays the baseline.
+
+### Honesty about the test set
+Some glossary entries (double/single cream, aubergine, mince, scallions, lardons) are also lines of the
+48-line test set, and we have looked at that set's misses many times. A test-set gain from this change
+would therefore be optimistic. So:
+- settings are compared on the **dev set** (`python src/evaluate.py --dev` vs `--dev --no-normalize`);
+- the test set is reported, but marked as no longer blind;
+- the number we trust is a **new holdout set** (`data/eval/holdout_lines.csv`), written by a team member
+  after this change, labelled by text search before any model runs, and run **once**
+  (`python src/evaluate.py --holdout`).
+
+### What changes on the eval lines (no model needed to check this)
+Dev: 15 of 48 names change (plain flour → wheat flour, cornflour → corn starch, garbanzo beans → chick pea,
+cilantro → coriander, arugula → rocket, mozarella → mozzarella, spinnach → spinach, sunflwer → sunflower…).
+Test: 10 of 48 (aubergine → eggplant, mince → minced beef, scallions → spring onion, lardons → lardoons,
+brocoli → broccoli, chiken → chicken, parmesean → parmesan, double/single cream, bell pepper).
+No change that looks wrong.
+
+### Tests
+`tests/test_normalize.py`: synonyms, whole-word and single-pass rules, typos corrected, correct words
+left alone (including "xanthan gum"), synonyms before typos. 61 fast tests pass.
+
+### Results
+[to be added: dev with and without normalization, test (not blind), holdout (once)]
+
+---
+
 ## 2026-11-19: Parser fixes (cans, heads, bunches, handfuls, "to taste")
 
 ### Problem

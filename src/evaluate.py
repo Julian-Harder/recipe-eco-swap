@@ -8,6 +8,8 @@ Run from the project root:
     python src/evaluate.py            # keyword baseline vs AI matcher on the test set
     python src/evaluate.py --sweep    # also: AI results for a range of thresholds
     python src/evaluate.py --dev      # same on the dev set (the one settings are tuned on)
+    python src/evaluate.py --dev --no-normalize   # AI matcher without synonyms/typo correction
+    python src/evaluate.py --holdout  # the fresh holdout set: run ONCE, after all choices are made
 """
 import argparse
 import sys
@@ -23,6 +25,7 @@ from parse import parse_line  # noqa: E402
 
 EVAL = Path(__file__).resolve().parents[1] / "data" / "eval" / "ingredient_lines.csv"
 DEV = EVAL.with_name("dev_lines.csv")
+HOLDOUT = EVAL.with_name("holdout_lines.csv")  # written after the 2026-11-19 changes; run once at the end
 CO2_TOLERANCE = 0.20  # secondary metric: is the CO2 factor within 20% of the gold food's?
 
 
@@ -78,18 +81,22 @@ if __name__ == "__main__":
     parser.add_argument("--sweep", action="store_true", help="show AI results for several thresholds")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="sentence-transformers model name")
     parser.add_argument("--dev", action="store_true", help="use the dev set instead of the test set")
+    parser.add_argument("--holdout", action="store_true", help="use the holdout set (run once, at the end)")
+    parser.add_argument("--no-normalize", action="store_true", help="AI matcher without synonyms/typo fixes")
     args = parser.parse_args()
 
-    data = pd.read_csv(DEV if args.dev else EVAL, dtype=str)
-    print(f"{'Dev' if args.dev else 'Test'} set: {len(data)} lines\n")
+    path, label = (HOLDOUT, "Holdout") if args.holdout else (DEV, "Dev") if args.dev else (EVAL, "Test")
+    data = pd.read_csv(path, dtype=str)
+    print(f"{label} set: {len(data)} lines\n")
     foods = load_foods()
 
     keyword = KeywordMatcher()
     report("keyword baseline", score(raw_predictions(keyword, data), data, foods), foods)
 
-    ai = AIMatcher(foods, model_name=args.model)
+    ai = AIMatcher(foods, model_name=args.model, normalize=not args.no_normalize)
     preds = raw_predictions(ai, data)
-    report(f"ai: {ai.model_name}, threshold {ai.threshold}", score(preds, data, foods, ai.threshold), foods)
+    label = f"ai: {ai.model_name}, threshold {ai.threshold}, normalize {ai.normalize}"
+    report(label, score(preds, data, foods, ai.threshold), foods)
 
     # If the UI offers the top 5 foods as a dropdown, how often is a correct one among them?
     with_gold = data[data["gold_codes"].notna()]
