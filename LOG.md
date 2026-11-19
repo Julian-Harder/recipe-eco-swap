@@ -4,6 +4,40 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Deploying the app and collecting feedback (towards level 4)
+
+### Why
+Level 4 means someone outside the team used the tool and their feedback is logged. On 2 December another
+team will use it. An app that only runs on one laptop after a 438 MB download is a demo risk.
+
+### Decision
+- **Hosting:** Streamlit Community Cloud, free, deploys from GitHub on every push to `main`.
+  Alternatives considered: Hugging Face Spaces (also free, would also work), running it on one laptop on demo
+  day (single point of failure). Community Cloud only deploys from a repository where the account is admin,
+  so the repo owner deploys it.
+- **Slim dependencies for the cloud:** `src/requirements.txt` with CPU-only PyTorch. The default Linux PyTorch
+  wheel pulls about 2.5 GB of GPU libraries the app never uses. Jupyter, DuckDB and pytest are not needed there.
+  The root `requirements.txt` stays the one for local work.
+- **Feedback form in the app (section 4):** would it help them choose (yes / maybe / no), which lines were
+  matched to the wrong food, a free comment, and an optional name or team. Each submission also stores the
+  recipe, the total and what the app matched for each line, so a wrong match can be traced. Saved by
+  `src/feedback.py` to `data/feedback/feedback.csv` (not in git, it may hold names).
+- **Known limit:** the hosted app's disk is wiped when it restarts or sleeps. The sidebar has a download
+  button; we download the CSV after every test session and copy the findings here. If we need more, the next
+  step would be a Google Sheet as storage.
+- Sidebar figures updated to the current matcher (dev set: 85% right, 100% in the top 5).
+
+### Tests
+`tests/test_feedback.py`: rows are appended with a header, and commas, quotes and new lines in comments
+survive. The app was also run headless with Streamlit's AppTest (with a stand-in matcher): it renders all
+four sections, saves a submission and refuses an empty one. 63 fast tests pass.
+
+### Next
+Deploy, run one test session with people outside the team before 2 December, and log what they said:
+[to be added].
+
+---
+
 ## 2026-11-19: Synonyms and typo correction before the AI matcher
 
 ### Problem

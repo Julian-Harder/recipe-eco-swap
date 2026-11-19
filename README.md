@@ -39,6 +39,19 @@ pytest -m "not slow"      # fast tests only: parser, CO2e maths, data files, key
 - GitHub Actions runs the fast tests on every push and pull request (`.github/workflows/tests.yml`).
   It cannot run the AI test, so run plain `pytest` locally before merging.
 
+## Deployed app (Streamlit Community Cloud)
+The app is hosted so testers outside the team can use it (course level 4).
+- **Who deploys:** Community Cloud only deploys from a repository where your GitHub account has admin rights,
+  so the repo owner deploys it (or a member deploys from a fork).
+- **How:** share.streamlit.io → *Create app* → repository `Julian-Harder/recipe-eco-swap`, branch `main`,
+  main file `src/app.py` → *Advanced settings*: Python 3.12 → *Deploy*. It redeploys on every push to `main`.
+- **Dependencies:** Community Cloud uses `src/requirements.txt` (next to the entrypoint) before the root file.
+  It is a slim list with CPU-only PyTorch; keep it in sync if the app needs a new package.
+- **First load** downloads the 438 MB model (a few minutes). The app sleeps after a period without visitors;
+  open it some minutes before a demo to wake it up.
+- **Feedback:** testers fill in section 4 of the app. The hosted disk is wiped on restart, so download the CSV
+  from the sidebar (*For the team*) after every test session and copy the findings into `LOG.md`.
+
 ## Data
 `data/raw/` is **not in git**: everyone downloads it locally with the commands below.
 `data/index/` (generated, so the app runs without the raw downloads), `data/curated/` (our hand-made
@@ -83,7 +96,10 @@ Notes:
 - `src/score.py` `score_recipe(lines)` -> kg CO2e per ingredient + total
 - `src/swaps.py` `suggest_swaps(...)` -> swaps with CO2 saved, biggest emitters first
 - `src/pipeline.py` runs everything end to end on a sample recipe (command line)
-- `src/app.py` Streamlit UI: top-5 food dropdown per line, editable grams, footprint chart, swaps
+- `src/app.py` Streamlit UI: top-5 food dropdown per line, editable grams, footprint chart, swaps, feedback form
+- `src/feedback.py` saves tester feedback to `data/feedback/feedback.csv` (not in git)
+- `src/normalize.py` synonyms and typo correction before the AI matcher
+- `src/requirements.txt` slim dependencies for the deployed app
 - `src/evaluate.py` accuracy, misses, top-5 recall and a threshold sweep for each matcher
 - `LOG.md` decision log: what we believed, chose and measured
 

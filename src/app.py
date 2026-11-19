@@ -12,6 +12,7 @@ import altair as alt  # noqa: E402
 import pandas as pd  # noqa: E402
 import streamlit as st  # noqa: E402
 
+from feedback import read_feedback, save_feedback  # noqa: E402
 from foods import load_foods  # noqa: E402
 from match import AIMatcher, KeywordMatcher, load_categories  # noqa: E402
 from parse import parse_line  # noqa: E402
@@ -46,11 +47,17 @@ with st.sidebar:
     st.markdown(
         f"**Matcher:** `{matcher.model_name}`. It picks a food on its own when its score is "
         f"≥ {matcher.threshold:.2f}; below that it asks you.\n\n"
-        "**Test set (48 lines):** right food 75% of the time, in the top 5 94% of the time "
-        "(keyword baseline: 27%)."
+        "**Dev set (48 lines):** right food 85% of the time, in the top 5 100% of the time "
+        "(keyword baseline: 46%). Synonyms and typos are normalized first (aubergine → eggplant, "
+        "chiken → chicken)."
     )
     st.caption("Data: Agribalyse (ADEME/INRAE), CIQUAL calories (ANSES, via Open Food Facts). "
                "Results are estimates per food category, not measurements of a specific product.")
+    with st.expander("For the team"):
+        st.caption("Download the feedback after every test session: the hosted app's disk is wiped "
+                   "when it restarts.")
+        st.download_button("Download feedback (CSV)", read_feedback() or "no feedback yet\n",
+                           file_name="feedback.csv", mime="text/csv")
 
 st.title("Recipe Eco-Score & Swap Assistant")
 st.caption("Paste a recipe with one ingredient per line, check the matches, then see the footprint and lower-impact swaps.")
@@ -161,3 +168,21 @@ for s in suggestions:
     st.markdown(f"- **{s['line']}**: {s['from']} → **{s['to']}** saves ≈ {s['kg_co2e_saved']:.1f} kg CO2e "
                 f"({s['kg_co2e_before']:.1f} → {s['kg_co2e_after']:.1f}). {s['reason']}.{note}")
 st.caption("Savings assume the same weight of the replacement, which is a simplification (see each swap's note).")
+
+# 4. Feedback from testers (level 4: someone outside the team used it, feedback is logged)
+st.divider()
+st.subheader("4. Tell us what you think")
+st.caption("You are testing a student prototype (ESADE, Group 8). Your answers help us improve it.")
+with st.form("feedback", clear_on_submit=True):
+    useful = st.radio("Would this help you choose lower-impact ingredients?", ["yes", "maybe", "no"],
+                      index=None, horizontal=True)
+    wrong = st.multiselect("Was any ingredient matched to the wrong food?", lines,
+                           placeholder="Pick the lines that were wrong (if any)")
+    comment = st.text_area("Anything confusing, missing or wrong?", height=90)
+    tester = st.text_input("Your name or team (optional)")
+    if st.form_submit_button("Send feedback"):
+        if useful is None and not wrong and not comment.strip():
+            st.warning("Answer at least one question before sending.")
+        else:
+            save_feedback(tester, useful, wrong, comment, recipe, total, matched)
+            st.success("Thank you! Your feedback was saved.")
