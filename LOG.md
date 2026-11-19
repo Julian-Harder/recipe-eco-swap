@@ -4,6 +4,42 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Parser fixes (cans, heads, bunches, handfuls, "to taste")
+
+### Problem
+A wrong amount gives a wrong CO2e even when the food is matched correctly. The parser had five known
+bugs, written down as `xfail` tests in the previous entry:
+- "1 can chopped tomatoes" = 120 g instead of 400 g ("can" was not a unit, and "tomato" was found first
+  in the piece weights).
+- "1 head of broccoli": "head of" stayed in the name sent to the matcher; 100 g by default.
+- "1 bunch fresh coriander": "bunch" stayed in the name; 100 g.
+- "a handful of spinach": no amount at all.
+- "salt to taste": "to taste" was sent to the matcher as part of the name.
+
+### Decision (`src/parse.py`)
+- New units: `can`/`tin` = 400 g (a standard can), `bunch` = 30 g and `handful` = 30 g (herbs, leaves),
+  `slice` = 30 g, and `head`, whose weight depends on the vegetable (garlic 50 g, broccoli 350 g,
+  lettuce 400 g, cauliflower 600 g, cabbage 900 g; 350 g otherwise).
+- For cans the form is kept for the matcher: "1 can chopped tomatoes" → name "canned chopped tomatoes",
+  so the processed-food penalty does not push it towards fresh tomatoes.
+- "a"/"an" counts as 1 only before a unit ("a handful of", "a pinch of"). "a few sprigs" and "an onion"
+  still give no amount, so the app asks instead of guessing.
+- Trailing notes are dropped from the name: "to taste", "to serve", "(optional)".
+- Default weights are rough averages; the user can still edit grams in the app.
+
+### Tests
+The 5 `xfail` cases now pass and became normal tests, plus 4 new ones (tins, head of garlic, slices,
+"optional") and a check that "a few sprigs" still asks the user. 37 fast tests pass.
+
+### Effect on the evaluation sets
+Parsed output changes for only 3 of the 96 eval lines: "1 head of brocoli" (test) and
+"1 bunch fresh coriander" (test) lose "head of"/"bunch" from the name, and "1 can tuna" (dev) becomes
+"canned tuna". The demo bolognese is unchanged (its tomatoes are "400g can chopped tomatoes").
+Matcher accuracy must be re-run (`python src/evaluate.py --dev`, then the test set once):
+[results to be added].
+
+---
+
 ## 2026-11-19: Smoke test and unit tests before changing more code
 
 ### Why
