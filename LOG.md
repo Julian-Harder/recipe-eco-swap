@@ -35,8 +35,22 @@ The 5 `xfail` cases now pass and became normal tests, plus 4 new ones (tins, hea
 Parsed output changes for only 3 of the 96 eval lines: "1 head of brocoli" (test) and
 "1 bunch fresh coriander" (test) lose "head of"/"bunch" from the name, and "1 can tuna" (dev) becomes
 "canned tuna". The demo bolognese is unchanged (its tomatoes are "400g can chopped tomatoes").
-Matcher accuracy must be re-run (`python src/evaluate.py --dev`, then the test set once):
-[results to be added].
+Re-run on 2026-11-19 (dev first, then the test set once):
+
+| | Dev correct | Test correct | Test wrong | Test abstained | Test top 5 |
+|---|---|---|---|---|---|
+| AI matcher, before | 33/48 (69%) | 36/48 (75%) | 5 | 8 | 44/47 (94%) |
+| AI matcher, after parser fixes | 33/48 (69%) | 36/48 (75%) | 5 | 8 | **45/47 (96%)** |
+| Keyword baseline, after | 22/48 (46%) | 13/48 (27%) | 19 | 17 | n/a |
+
+- Top-1 accuracy is unchanged. Expected: the fixes are about amounts, and the two changed test lines were
+  already right ("coriander") or are still blocked by the typo ("brocoli": no answer, score 0.55).
+- "brocoli" now has the right food in its top 5 (it was "head of brocoli" before), so top 5 goes from 94% to 96%:
+  in the app it is one click instead of a search.
+- The real gain is in grams, which the benchmark does not measure: a can is now 400 g, not 120 g
+  (≈ 3× too low before), and a head of broccoli 350 g, not 100 g.
+- The remaining misses are synonyms and typos (aubergine, mince, scallions, lardons, brocoli, chiken,
+  parmesean): that is Step 3.
 
 ---
 
