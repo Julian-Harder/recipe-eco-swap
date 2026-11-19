@@ -4,6 +4,104 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-19: Open Food Facts from Stub to Real
+
+### Problem
+Open Food Facts (OFF) is the course's required data source, but the pipeline only used OFF's copy of the
+CIQUAL calorie table. `off_api.py` worked (cached barcode lookup and search) and nothing called it.
+
+### Decision: two uses that need no fine-tuning
+1. **External validation (`src/off_validate.py`).** OFF contributors link products to an Agribalyse food (that is
+   how OFF computes the Eco-Score). Those links were made by other people on real, branded product names, so
+   they are an independent check of our matcher, and harder than recipe lines.
+   - Queries: the names of our 41 curated categories, fixed before looking at any result.
+   - Kept: products sold in English-speaking countries (the model reads English), with a name and an
+     Agribalyse code that is in our index; at most 15 per query; duplicate names dropped.
+   - Saved to `data/eval/off_pairs.csv` (product name → Agribalyse code), which is also the training data for
+     a later fine-tuning step.
+   - Scored like the other sets: top-1 with the 0.80 threshold (no answer counts as wrong) and top 5.
+2. **Barcode lookup in the app (section 4).** The user types a barcode; the app shows the product, OFF's
+   Agribalyse food, its kg CO2e per kg and Eco-Score, next to what our matcher picks from the product name,
+   and says whether they agree. Errors (unknown barcode, OFF unreachable) are shown, not raised.
+
+### Tests
+`tests/test_off.py` (no network): the Agribalyse link is read from OFF's JSON (direct or proxy code), the
+English name is preferred, and pair selection drops other markets, unknown codes, missing names and
+duplicates; scoring counts right / wrong / no answer. The app was run headless with a stand-in OFF client for a
+found product, an unknown barcode and a network error. 68 fast tests pass. CI now installs `requests`.
+
+### Real / stub / faked: change
+| Component | Status | Notes |
+|---|---|---|
+| Open Food Facts | **Real** | external validation set + barcode lookup in the app (was: Stub) |
+
+### First run (2026-11-19): the keyword baseline wins on OFF products
+460 pairs from 40 of the 41 queries ("cheese (hard)" found no English-market product with a usable link).
+
+| | Correct | Wrong | No answer | Top 5 |
+|---|---|---|---|---|
+| Keyword baseline | **257/460 (56%)** | 181 | 22 | n/a |
+| AI matcher (threshold 0.80) | 190/460 (41%) | 139 | 131 | 392/460 (85%) |
+
+We report this as it is: on branded product names the AI is **worse** than keyword matching under this metric.
+We did not change the matcher to fix it. Three reasons are visible in the misses:
+1. **OFF labels are noisy.** "Chicken breast" → "Chicken, meat and skin"; "British beef mince" → "Beef steak";
+   "mushrooms" → morels (11 of 12); "bananas" → plantains (9 of 12). In such cases the AI's answer is often
+   the right one and is counted wrong.
+2. **The near-duplicate rule is strict here.** Beef mince 5% and 10% fat are different foods for the calorie rule
+   but have the same CO2 factor (35.7). The keyword baseline always returns its category's default food, which
+   is often the same coarse food OFF uses.
+3. **Product names are long and branded** ("Simply... Piri Piri chicken breast slices"), so the AI falls under
+   the 0.80 threshold for 28% of products and gives no answer, while the keyword matcher almost always answers
+   (and is wrong 181 times, against 139 for the AI).
+
+### Follow-up analysis (decided after the first run, stated as such)
+- **Label audit:** 60 pairs drawn at random (seed 42) and checked by hand against the product name, without
+  looking at either matcher's answer: 43 correct (72%), 8 approximate (13%, e.g. prawn cocktail → raw prawns),
+  9 plainly wrong (15%: bananas → plantains, mushrooms → morels, skinless breast → meat and skin, mince → steak,
+  double cream → light cream, salmon fishcakes → raw salmon). Saved in `data/eval/off_label_audit.csv`.
+- **CO2 within ±20%**, the project's secondary metric, which this script had left out: for the footprint,
+  5% vs 10% fat mince is the same answer.
+- **AI forced to answer** (no threshold): how often its first choice is right when it must answer, which is
+  closer to what the app does (a low-confidence line becomes a dropdown, not a blank).
+- Scores on the 43 audited pairs with a correct label.
+
+### Follow-up results (2026-11-19, Marc's MacBook)
+| | Pairs | Correct | CO2 within ±20% | Wrong | No answer | Top 5 |
+|---|---|---|---|---|---|---|
+| Keyword baseline | 460 | 257 (56%) | 299 (65%) | 181 | 22 | n/a |
+| AI, threshold 0.80 | 460 | 190 (41%) | 234 (51%) | 139 | 131 | 392 (85%) |
+| AI, forced to answer | 460 | 233 (51%) | **304 (66%)** | 227 | 0 | n/a |
+| Keyword, audited correct labels | 43 | **30 (70%)** | **32 (74%)** | 13 | 0 | n/a |
+| AI, threshold 0.80, audited correct labels | 43 | 22 (51%) | 26 (60%) | 10 | 11 | **42 (98%)** |
+
+### What we conclude
+- **Label noise is not the whole story.** Even on the 43 pairs with a checked label, the keyword baseline beats the
+  AI's first answer (70% vs 51%, with ±15 points of uncertainty on 43 pairs). We do not claim the AI is better on
+  product names.
+- **Part of it is how the set was built:** each product was found by searching OFF for one of our category names,
+  which are also the keyword matcher's synonyms. So almost every product name contains a keyword the baseline
+  knows ("Aldi Beef Mince" → "beef mince"), and none of the traps or synonyms where the AI wins on recipe lines
+  (holdout: 79% vs 48%) appear here. The set favours the baseline by construction; we noticed this only after
+  the run.
+- **The threshold costs the AI most here:** forced to answer, its footprint is as good as the baseline's
+  (CO2 within ±20%: 66% vs 65%). With the threshold it declines 28% of branded names.
+- **The dropdown still works:** the right food is in the AI's top 5 for 98% of the audited products and 85% of
+  all products, so in the app a user gets there in one click.
+- **Different task, different winner.** On recipe ingredient lines (what the app is for) the AI is clearly
+  better: holdout 79% vs 48%, test 75% vs 27%. On branded product names with OFF's coarse labels, simple
+  keyword matching is as good or better.
+
+### Decisions
+- Keep the AI matcher for recipe lines (unchanged).
+- In the barcode section of the app, OFF's own Agribalyse link is the main answer; our matcher's guess is shown
+  next to it only as a comparison.
+- Possible future work, not started: strip brand and marketing words from product names before matching, and
+  build an OFF set by barcode or random sampling instead of by our category names, so it does not favour the
+  baseline.
+
+---
+
 ## 2026-11-19: Holdout set, the number we trust
 
 ### Why

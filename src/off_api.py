@@ -15,7 +15,7 @@ HEADERS = {"User-Agent": "PAIBS-RecipeEcoSwap/0.1 (student project)"}
 # The API returns the eco-score as ecoscore_*; environmental_score_* is requested too
 # in case it is renamed. ecoscore_data.agribalyse holds the Agribalyse code and CO2 breakdown.
 FIELDS = ",".join([
-    "code", "product_name", "brands", "categories_tags", "countries_tags",
+    "code", "product_name", "product_name_en", "brands", "categories_tags", "countries_tags",
     "nutriscore_grade", "ecoscore_grade", "ecoscore_score",
     "environmental_score_grade", "environmental_score_score",
     "ecoscore_data", "product_quantity", "product_quantity_unit",
@@ -55,6 +55,7 @@ def flatten(product: dict) -> dict:
     return {
         "code": product.get("code"),
         "product_name": product.get("product_name"),
+        "product_name_en": product.get("product_name_en"),
         "brands": product.get("brands"),
         "categories_tags": product.get("categories_tags"),
         "countries_tags": product.get("countries_tags"),
