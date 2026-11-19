@@ -3,6 +3,57 @@
 Takes a recipe, estimates its environmental footprint per ingredient using
 Agribalyse data, and suggests lower-impact swaps.
 
+## Project status (updated 2026-11-19)
+Hackathon 1 demo: **2 December 2026**. Course level today: **3** (key AI component measured against a
+baseline); level 4 once people outside the team have used the deployed app and their feedback is logged.
+
+**Headline results** (details and every decision in [LOG.md](LOG.md))
+
+| Ingredient matching | AI matcher | Keyword baseline |
+|---|---|---|
+| **Holdout, 29 lines nobody tuned on (the number we report)** | **79%** (top 5: 100%) | 48% |
+| Dev set, 48 lines (used to choose settings) | 85% (top 5: 100%) | 46% |
+| Test set, 48 lines (no longer blind) | 92% | 27% |
+| Open Food Facts branded products, 460 (external check) | 41% (66% CO2 within ±20% if forced to answer) | 56% |
+
+On recipe lines the AI clearly wins; on branded product names with Open Food Facts' coarse labels, keyword
+matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
+
+**Real / stub / faked**
+
+| Component | Status |
+|---|---|
+| Recipe parsing (quantities, units, cans, heads, bunches…) | Real (rules) |
+| Synonym + typo normalization | Real (rules + fuzzy matching) |
+| AI ingredient matching (food embedding model, top-5 dropdown below 0.80) | Real, measured |
+| CO2e calculation (Agribalyse) | Real |
+| Swaps | Real: curated swaps that fit the dish + AI swaps (same food group, embedding similarity) |
+| Open Food Facts | Real: external validation set + barcode lookup in the app |
+| Feedback form | Real (local CSV; hosted disk is wiped on restart) |
+| Hosting | Ready, **not deployed yet** |
+
+**Done**
+- [x] End-to-end Streamlit app: recipe → matched foods (top-5 dropdown) → CO2e → swaps
+- [x] AI matcher measured against a keyword baseline on dev, test and a fresh holdout
+- [x] Parser fixes, synonym and typo normalization
+- [x] Dish-aware swaps and AI swaps for any food
+- [x] Open Food Facts used (validation + barcode lookup), with a label audit
+- [x] Feedback form, deployment files, 77 automated tests and CI on every push
+
+**To do before 2 December**
+- [ ] Deploy on Streamlit Community Cloud (repo owner, see "Deployed app" below)
+- [ ] Test session with people outside the team; download the feedback and log it (level 4)
+- [ ] Human review of the swaps by two members, independently (`python src/review_swaps.py`)
+- [ ] Session 3 logs: hill chart, press release + FAQs, buy-a-feature scope, pre-mortem (top 3 risks), milestones, smoke-test swap
+- [ ] Presentation: architecture, real vs faked, results, limitations, Term 2 roadmap, one guide slide for the logs
+- [ ] Code freeze (about 28 November) and a rehearsal of the demo path
+
+**Known limitations and ideas for later**
+- Descriptive words ("boneless", "free-range", "(about 150g each)") lower match scores; "red wine vinegar" → red wine.
+- Processed or cooked forms sometimes win (courgettes → puree, lardons → cooked).
+- Fine-tuning the embedding model on the Open Food Facts pairs (`data/eval/off_pairs.csv`) is not started.
+- Savings assume the same weight of the replacement.
+
 ## Setup
 All Python packages live in a project virtual environment (`.venv`), nothing global:
 ```bash
@@ -18,12 +69,14 @@ streamlit run src/app.py           # the web app: paste a recipe, confirm matche
 python src/pipeline.py             # sample recipe -> matched foods, CO2e per ingredient, total, swaps (AI matcher)
 python src/pipeline.py --keyword   # same, with the keyword baseline
 python src/evaluate.py             # keyword baseline vs AI matcher on the test set (add --dev for the dev set)
+python src/evaluate.py --holdout   # the holdout: the number we report (already run once; do not tune on it)
 python src/off_validate.py --collect  # Open Food Facts products as an external check (slow the first time, cached)
+python src/review_swaps.py         # swaps of 7 recipes to a CSV for a human y/n review (then --summary)
 python src/compare_matchers.py     # compare models/settings on the dev set (slow: downloads ~1 GB of models)
 python src/build_index.py          # only when the raw data changes: rebuilds data/index/foods.csv
 ```
 The first run of the AI matcher downloads `jonny9f/food_embeddings` (438 MB) from Hugging Face.
-Settings are tuned on the dev set only; the test set is for the final number. Decisions, results and
+Settings are tuned on the dev set only; the holdout gives the number we report. Decisions, results and
 what is real vs. stubbed are in [LOG.md](LOG.md).
 
 ## Tests (run before every merge)
@@ -32,11 +85,14 @@ pytest                    # everything, including the AI smoke test of the demo 
 pytest -m "not slow"      # fast tests only: parser, CO2e maths, data files, keyword demo path (<1 s)
 ```
 - `tests/test_smoke.py` runs the exact demo path (bolognese → match → CO2e → swaps) and checks the total
-  (≈ 15.2 kg with the AI matcher), that beef is matched to minced beef, and that every swap saves CO2e.
+  (≈ 15.2 kg with the AI matcher), that beef is matched to minced beef, that every swap saves CO2e and that
+  the grated parmesan is not swapped for yogurt.
 - `tests/test_parse.py` checks grams and names for common lines. Cases marked `xfail` are **known bugs**:
   when you fix one, pytest fails with XPASS, so remove its `xfail` marker in the same pull request.
 - `tests/test_score_and_data.py` checks the CO2e maths, that no line is silently dropped, and that the
-  data files agree with each other (and that test and dev sets do not overlap).
+  data files agree with each other (and that test, dev and holdout sets do not overlap).
+- `tests/test_normalize.py` synonyms and typo correction; `tests/test_swaps.py` dish rules and AI swaps;
+  `tests/test_off.py` Open Food Facts parsing and scoring (no network); `tests/test_feedback.py` the feedback CSV.
 - GitHub Actions runs the fast tests on every push and pull request (`.github/workflows/tests.yml`).
   It cannot run the AI test, so run plain `pytest` locally before merging.
 
@@ -50,21 +106,24 @@ The app is hosted so testers outside the team can use it (course level 4).
   It is a slim list with CPU-only PyTorch; keep it in sync if the app needs a new package.
 - **First load** downloads the 438 MB model (a few minutes). The app sleeps after a period without visitors;
   open it some minutes before a demo to wake it up.
-- **Feedback:** testers fill in section 4 of the app. The hosted disk is wiped on restart, so download the CSV
+- **Feedback:** testers fill in section 5 of the app. The hosted disk is wiped on restart, so download the CSV
   from the sidebar (*For the team*) after every test session and copy the findings into `LOG.md`.
 
 ## Data
 `data/raw/` is **not in git**: everyone downloads it locally with the commands below.
 `data/index/` (generated, so the app runs without the raw downloads), `data/curated/` (our hand-made
-tables) and `data/eval/` (the test set) **are** in git.
+tables) and `data/eval/` (evaluation sets) **are** in git.
 
 | File | What it is |
 |---|---|
 | `data/index/foods.csv` | the 1,615 Agribalyse ingredients the matcher searches: code, English/French name, sub-group, kg CO2e per kg, kcal per 100 g (CIQUAL). Ready meals and cooked duplicates removed; see LOG.md |
 | `data/curated/categories.csv` | ~40 ingredient categories: Agribalyse code, kg CO2e per kg ("Changement climatique"), synonyms separated by `\|`. Used by the keyword baseline and to attach swaps. |
-| `data/curated/swaps.csv` | hand-curated swaps between categories, with reason and notes |
+| `data/curated/swaps.csv` | hand-curated swaps between categories, with reason, notes and `not_when` (words that make a swap wrong for the dish) |
 | `data/eval/ingredient_lines.csv` | **test set**: 48 lines with the correct Agribalyse code(s) (`\|`-separated) and a kind: easy, trap, synonym, typo, none. Never tune on it. |
 | `data/eval/dev_lines.csv` | **dev set**: 48 different lines, same format, used to choose models and settings |
+| `data/eval/holdout_lines.csv` | **holdout**: 29 lines written after all choices, labelled before any model ran, run once |
+| `data/eval/off_pairs.csv` | 460 Open Food Facts products → their Agribalyse code (external check; future fine-tuning data) |
+| `data/eval/off_label_audit.csv` | 60 random OFF pairs checked by hand: 72% correct, 13% approximate, 15% wrong |
 
 Raw downloads (put them in `data/raw/`):
 
@@ -85,7 +144,7 @@ Notes:
 
 ## Layout
 - `data/raw/` original downloads (not in git), `data/processed/` cleaned outputs (not in git)
-- `data/index/` generated ingredient index, `data/curated/` categories and swaps tables, `data/eval/` evaluation set
+- `data/index/` generated ingredient index, `data/curated/` categories and swaps tables, `data/eval/` evaluation sets
 - `notebooks/` exploration
 - `src/load_data.py` loads Agribalyse (Level 1)
 - `src/build_index.py` builds `data/index/foods.csv` from Agribalyse + CIQUAL
