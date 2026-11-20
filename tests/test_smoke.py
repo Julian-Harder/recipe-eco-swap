@@ -8,6 +8,8 @@ Only the fast tests:         pytest -m "not slow"
 The keyword version runs anywhere (no model needed). The AI version is the real demo path; it loads
 jonny9f/food_embeddings (438 MB, downloaded on first use) and is skipped when that is not possible.
 """
+import os
+
 import pytest
 
 from match import KeywordMatcher
@@ -46,12 +48,17 @@ def test_demo_path_keyword_baseline(foods, categories, swaps):
 
 @pytest.fixture(scope="module")
 def ai_matcher(foods):
-    pytest.importorskip("sentence_transformers", reason="sentence-transformers not installed")
+    # In CI (REQUIRE_AI_MODEL=1) a missing model is a failure, not a skip: the demo path must be tested.
+    required = os.environ.get("REQUIRE_AI_MODEL") == "1"
+    if not required:
+        pytest.importorskip("sentence_transformers", reason="sentence-transformers not installed")
     from match import AIMatcher
 
     try:
         return AIMatcher(foods)
     except Exception as exc:  # no internet / Hugging Face unreachable on first run
+        if required:
+            raise
         pytest.skip(f"AI model could not be loaded: {exc}")
 
 
