@@ -44,7 +44,7 @@ matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
 - [ ] Deploy on Streamlit Community Cloud (repo owner, see "Deployed app" below)
 - [ ] Test session with people outside the team; download the feedback and log it (level 4)
 - [ ] Human review of the swaps by two members, independently (`python src/review_swaps.py`)
-- [ ] Session 3 logs: hill chart, press release + FAQs, buy-a-feature scope, pre-mortem (top 3 risks), milestones, smoke-test swap
+- [ ] Session 3 logs: drafted in [docs/SESSION_3_LOG.md](docs/SESSION_3_LOG.md); fill the **[TEAM TO FILL]** parts from class (wall photo, red-team post-its, tokens, smoke-test swap) and the owners
 - [ ] Presentation: architecture, real vs faked, results, limitations, Term 2 roadmap, one guide slide for the logs
 - [ ] Code freeze (about 28 November) and a rehearsal of the demo path
 
@@ -76,6 +76,11 @@ python src/compare_matchers.py     # compare models/settings on the dev set (slo
 python src/build_index.py          # only when the raw data changes: rebuilds data/index/foods.csv
 ```
 The first run of the AI matcher downloads `jonny9f/food_embeddings` (438 MB) from Hugging Face.
+
+**If something goes wrong on a fresh install** (found in our own fresh-install test, see docs/SESSION_3_LOG.md):
+- AI tests show as *skipped*: another `pytest` (e.g. Anaconda's) is running. Use `python -m pytest`, and run
+  `conda deactivate` before `source .venv/bin/activate`.
+- Imports fail after moving the project folder: a virtual environment cannot be moved. Delete `.venv` and create it again.
 Settings are tuned on the dev set only; the holdout gives the number we report. Decisions, results and
 what is real vs. stubbed are in [LOG.md](LOG.md).
 

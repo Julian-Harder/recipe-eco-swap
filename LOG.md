@@ -4,6 +4,17 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-20: Session 3 log written up
+
+The Session 3 exercises (hill chart, press release, buy a feature, pre-mortem, milestones and team rules,
+smoke-test swap) are in [docs/SESSION_3_LOG.md](docs/SESSION_3_LOG.md), written from the state of the repository
+on 20 November. Results that came from class with other teams are marked [TEAM TO FILL] and are not reconstructed.
+Key decisions there: the bottleneck is deployment (only the repo owner can deploy); code freeze on 28 November;
+decision rules with dates for the top 3 risks; every pull request reviewed by another member from 20 November
+(PRs #2–#9 were merged by their author). The fresh-install problems found on 19 November are now in the README.
+
+---
+
 ## 2026-11-19: Swaps that fit the dish, and AI swaps for any food
 
 ### Problem
