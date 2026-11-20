@@ -27,8 +27,8 @@ downhill = we know what to do, only work is left. Rule: a component is downhill 
 | Swaps | Downhill (rule) | Downhill | Dish-aware + AI swaps built; **human review not done** |
 | Open Food Facts | Stub | Done | Validation set (460 products) + barcode lookup |
 | Streamlit interface | Done (local) | Done (local) | Feedback form added |
-| **Deployment** | — | **Uphill** | Not yet tried on Streamlit Cloud: we do not know if the 438 MB model fits and loads in time |
-| **Outside feedback (level 4)** | — | **Uphill** | Depends on deployment and on finding testers |
+| Deployment | — | Done | Deployed on Streamlit Cloud on 19 Nov; checked on 20 Nov (latest version, model loads, all sections work) |
+| **Outside feedback (level 4)** | — | **Uphill** | App is live; depends on finding testers |
 | Presentation | — | Uphill | Not started |
 
 **Dependencies (what needs what)**
@@ -40,7 +40,9 @@ Swap review (2 members) ──► Swap results in the log ──► Presentation
 Smoke test / code freeze ──► Rehearsal ──► Demo on 2 December
 ```
 
-**Bottleneck (red dot): deployment.** It is a *people dependency*: Streamlit Community Cloud only deploys from a
+**Bottleneck (red dot) on 11–19 Nov: deployment; resolved on 19 Nov (the repo owner deployed). Now: outside feedback.**
+
+*Original note:* It is a *people dependency*: Streamlit Community Cloud only deploys from a
 repository where the account is admin, and on a personal GitHub repository only the owner is admin. Everything on
 the level-4 path waits for it. Mitigation: owner deploys this weekend; fallback in the pre-mortem (section 5).
 
@@ -125,7 +127,7 @@ integration is not left to the last week.
 
 | # | Risk | Likelihood | Impact | Fallback |
 |---|---|---|---|---|
-| 1 | **The deployed app does not work on demo day**: never deployed, out of memory with the 438 MB model, or asleep and slow to wake | Medium | High | Run the demo locally on a laptop that already has the model; open the hosted app 10 min before to wake it. Reduced on 20 Nov: CI now installs the deployment dependencies and runs the AI demo test on every push |
+| 1 | **The deployed app does not work on demo day**: out of memory with the 438 MB model, or asleep and slow to wake | Low (deployed and checked 20 Nov) | High | Run the demo locally on a laptop that already has the model; open the hosted app 10 min before to wake it. Reduced on 20 Nov: CI now installs the deployment dependencies and runs the AI demo test on every push |
 | 2 | **No outside feedback, so no level 4** | Medium | Medium | Ask another team to test it during the session and log their feedback live |
 | 3 | **A wrong match on stage** ("red wine vinegar" → red wine, onion → dried onion) makes the number look absurd | Low (demo path is tested) | High | Demo only the tested bolognese path; show the top-5 dropdown as the safety net and name the limitation |
 | 4 | A last-minute change breaks the demo | Low | High | Code freeze on 28 November; smoke test must pass before every merge |
@@ -151,7 +153,7 @@ integration is not left to the last week.
 |---|---|---|---|
 | 19 Nov | Tests, parser, matcher, holdout, OFF, swaps | Merged in `main`, logged | Marc (done) |
 | 20 Nov | CI runs the AI demo test with the deployment dependencies | `full-tests` job green on `main` | Marc |
-| 22 Nov | App deployed | Public URL loads the bolognese | [TEAM TO FILL] (must be the repo owner) |
+| 19 Nov | App deployed | Public URL loads the bolognese | Julian (done: https://recipe-eco-swap-esade.streamlit.app/) |
 | 25 Nov | Swap review | Two members judged the swaps independently; result in LOG.md | [TEAM TO FILL] |
 | 25 Nov | Fresh install by everyone | Each member ran `python -m pytest` from a fresh clone | Everyone |
 | 27 Nov | Feedback session | ≥ 3 outside testers; CSV downloaded; findings in LOG.md | [TEAM TO FILL] |

@@ -37,6 +37,9 @@ def check_demo_result(scored, total, swaps, expected_total, tolerance):
     # 5. The parmesan grated on top is not replaced by yogurt (dish-aware swaps, LOG 2026-11-19).
     assert not any("parmesan" in s["line"] and s["to"] == "yogurt" for s in swaps)
 
+    # 6. No AI swap for the tomatoes (seen on the deployed app: canned tomatoes -> raw beetroot, LOG 2026-11-20).
+    assert not any("tomato" in s["line"] and s.get("source") == "ai" for s in swaps)
+
 
 def test_demo_path_keyword_baseline(foods, categories, swaps):
     scored, total, suggestions = run(SAMPLE_RECIPE, KeywordMatcher(categories),

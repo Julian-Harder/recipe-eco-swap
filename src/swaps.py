@@ -5,8 +5,8 @@ Two sources, curated first:
    groups (beef mince -> lentils), which no similarity search would propose. Each swap may have a `not_when`
    pattern: if it matches the recipe line or the rest of the recipe, the swap is skipped, because it does not
    fit the dish (parmesan grated on a bolognese is not replaced by yogurt).
-2. AI swaps for any matched food: foods from the same Agribalyse sub-group (meats, cheeses, fish...) with at
-   least MIN_SAVING less CO2e per kg, ranked by how similar the embedding model finds them to the original.
+2. AI swaps for matched foods in sub-groups where foods play the same role (SWAPPABLE_SUBGROUPS: meats, fish,
+   cheeses, dairy, fats, cereals): foods from the same sub-group with at least MIN_SAVING less CO2e per kg, ranked by how similar the embedding model finds them to the original.
    Offal and processed or cooked forms are left out unless the original is one, and a swap must save at least
    MIN_KG_SAVED in this recipe.
 
@@ -22,6 +22,15 @@ CURATED = Path(__file__).resolve().parents[1] / "data" / "curated"
 
 MIN_SAVING = 0.30  # an AI swap must cut the CO2e factor by at least 30%
 MIN_KG_SAVED = 0.1  # ...and save at least 0.1 kg CO2e in this recipe (about half a km by car), or it is noise
+# Sub-groups where foods play the same role in a dish, so a similar food is a real substitute (beef -> chicken,
+# salmon -> mackerel, parmesan -> another cheese, rice -> barley). Not vegetables, fruit, herbs, spices or sauces:
+# there "same group" does not mean "same role" (canned tomatoes -> raw beetroot), and their footprint is small.
+SWAPPABLE_SUBGROUPS = {
+    "viandes crues", "viandes cuites", "charcuteries", "poissons crus", "poissons cuits",
+    "mollusques et crustacés crus", "mollusques et crustacés cuits", "fromages", "laits",
+    "produits laitiers frais et assimilés", "crèmes et spécialités à base de crème", "beurres",
+    "huiles et graisses végétales", "pâtes, riz et céréales",
+}
 OFFAL = re.compile(r"\b(?:brain|heart|liver|kidney|gizzard|tongue|tripe|foot|feet|sweetbread|offal|blood|lung|"
                    r"spleen|marrow|cheek|tail|ear|snout)s?\b", re.I)
 PROCESSED_FORM = re.compile(r"\b(?:cooked|boiled|roasted|baked|fried|grilled|steamed|canned|frozen|dried|smoked|"
@@ -50,6 +59,8 @@ def ai_candidates(code: str, foods: pd.DataFrame, similarity: np.ndarray, k: int
     `similarity` is aligned with foods.index: the embedding similarity of every food to the original one.
     """
     original = foods.loc[code]
+    if original["subgroup"] not in SWAPPABLE_SUBGROUPS:
+        return []
     keep_processed = bool(PROCESSED_FORM.search(original["name"]))
     mask = ((foods["subgroup"] == original["subgroup"]).to_numpy()
             & (foods["co2_kg_per_kg"] <= (1 - MIN_SAVING) * original["co2_kg_per_kg"]).to_numpy()

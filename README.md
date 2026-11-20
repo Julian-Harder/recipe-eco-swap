@@ -3,9 +3,11 @@
 Takes a recipe, estimates its environmental footprint per ingredient using
 Agribalyse data, and suggests lower-impact swaps.
 
-## Project status (updated 2026-11-19)
+## Project status (updated 2026-11-20)
+
+**Live app: https://recipe-eco-swap-esade.streamlit.app/**
 Hackathon 1 demo: **2 December 2026**. Course level today: **3** (key AI component measured against a
-baseline); level 4 once people outside the team have used the deployed app and their feedback is logged.
+baseline). The app is deployed; level 4 once people outside the team have used it and their feedback is logged.
 
 **Headline results** (details and every decision in [LOG.md](LOG.md))
 
@@ -27,10 +29,10 @@ matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
 | Synonym + typo normalization | Real (rules + fuzzy matching) |
 | AI ingredient matching (food embedding model, top-5 dropdown below 0.80) | Real, measured |
 | CO2e calculation (Agribalyse) | Real |
-| Swaps | Real: curated swaps that fit the dish + AI swaps (same food group, embedding similarity) |
+| Swaps | Real: curated swaps that fit the dish + AI swaps (meats, fish, cheeses, dairy, fats, cereals; embedding similarity) |
 | Open Food Facts | Real: external validation set + barcode lookup in the app |
 | Feedback form | Real (local CSV; hosted disk is wiped on restart) |
-| Hosting | Ready, **not deployed yet** |
+| Hosting | Real: deployed on Streamlit Community Cloud (19 Nov), checked on 20 Nov |
 
 **Done**
 - [x] End-to-end Streamlit app: recipe → matched foods (top-5 dropdown) → CO2e → swaps
@@ -38,10 +40,10 @@ matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
 - [x] Parser fixes, synonym and typo normalization
 - [x] Dish-aware swaps and AI swaps for any food
 - [x] Open Food Facts used (validation + barcode lookup), with a label audit
-- [x] Feedback form, deployment files, 77 automated tests and CI on every push (including the AI tests)
+- [x] Feedback form, deployment files, 78 automated tests and CI on every push (including the AI tests)
+- [x] App deployed on Streamlit Community Cloud and checked (bolognese, typos, OFF and feedback sections)
 
 **To do before 2 December**
-- [ ] Deploy on Streamlit Community Cloud (repo owner, see "Deployed app" below)
 - [ ] Test session with people outside the team; download the feedback and log it (level 4)
 - [ ] Human review of the swaps by two members, independently (`python src/review_swaps.py`)
 - [ ] Session 3 logs: drafted in [docs/SESSION_3_LOG.md](docs/SESSION_3_LOG.md); fill the **[TEAM TO FILL]** parts from class (wall photo, red-team post-its, tokens, smoke-test swap) and the owners
@@ -49,7 +51,8 @@ matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
 - [ ] Code freeze (about 28 November) and a rehearsal of the demo path
 
 **Known limitations and ideas for later**
-- Descriptive words ("boneless", "free-range", "(about 150g each)") lower match scores; "red wine vinegar" → red wine.
+- Descriptive words ("boneless", "free-range", "(about 150g each)") lower match scores; "red wine vinegar" → red wine;
+  "salmon fillet" → salmon rillettes.
 - Processed or cooked forms sometimes win (courgettes → puree, lardons → cooked).
 - Fine-tuning the embedding model on the Open Food Facts pairs (`data/eval/off_pairs.csv`) is not started.
 - Savings assume the same weight of the replacement.
@@ -110,7 +113,7 @@ pytest -m "not slow"      # fast tests only: parser, CO2e maths, data files, key
   same packages Streamlit Cloud will install.
 
 ## Deployed app (Streamlit Community Cloud)
-The app is hosted so testers outside the team can use it (course level 4).
+The app is hosted so testers outside the team can use it (course level 4): **https://recipe-eco-swap-esade.streamlit.app/**
 - **Who deploys:** Community Cloud only deploys from a repository where your GitHub account has admin rights,
   so the repo owner deploys it (or a member deploys from a fork).
 - **How:** share.streamlit.io → *Create app* → repository `Julian-Harder/recipe-eco-swap`, branch `main`,
