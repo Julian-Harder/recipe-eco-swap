@@ -4,6 +4,32 @@ Newest entries first. Each entry says what we believed, what we chose, and why.
 
 ---
 
+## 2026-11-20: App deployed and checked; AI swaps limited to foods that share a role
+
+### Deployment
+Julian deployed the app on Streamlit Community Cloud on 19 November: **https://recipe-eco-swap-esade.streamlit.app/**.
+Checked on 20 November in a browser: it serves the latest `main` (sidebar shows the 85% dev figure), the demo
+bolognese gives ≈ 15.2 kg CO2e, no parmesan → yogurt swap, the Open Food Facts and feedback sections are there,
+and typos work on the live app ("2 chiken breasts" → chicken breast, "1 aubergine" → eggplant). Known misses also
+show up there, as logged before: "300g salmon fillet" → salmon rillettes, "red wine vinegar" → red wine.
+
+### Problem found on the live app
+On the demo bolognese, the AI swaps suggested replacing the canned chopped tomatoes with **raw beetroot** or **raw
+spinach**. Both are in Agribalyse's "légumes" sub-group with a lower footprint, but they do not play the same role
+in the dish. Inside vegetables, fruit, herbs, spices and sauces, "same sub-group" does not mean "substitute", and
+these foods have small footprints anyway (median 0.85 kg CO2e per kg for vegetables).
+
+### Decision
+AI swaps only within sub-groups where foods play the same role in a dish: raw and cooked meat, cured meat, raw and
+cooked fish and seafood, cheeses, milks, fresh dairy, creams, butters, vegetable oils, and pasta/rice/cereals
+(`SWAPPABLE_SUBGROUPS` in `src/swaps.py`). Curated swaps are unchanged.
+
+### Tests
+New test: no AI swap between vegetables (canned tomatoes). The smoke test now also checks that the demo bolognese
+gets no AI swap for its tomatoes; CI runs it with the real model. 78 tests.
+
+---
+
 ## 2026-11-20: Session 3 log written up
 
 The Session 3 exercises (hill chart, press release, buy a feature, pre-mortem, milestones and team rules,

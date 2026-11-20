@@ -62,3 +62,13 @@ def test_tiny_savings_are_not_suggested(foods, categories, swaps):
     scored = pd.DataFrame([{"line": "10g salmon", "category": None, "grams": 10.0,
                             "kg_co2e": 10 / 1000 * foods.at[salmon, "co2_kg_per_kg"], "food_code": salmon}])
     assert suggest_swaps(scored, swaps, categories, foods=foods, similar=word_similarity(foods)) == []
+
+
+def test_no_ai_swaps_between_vegetables(foods, categories, swaps):
+    # Found on the deployed app (20 Nov): canned tomatoes were swapped for raw beetroot and spinach.
+    tomato = foods.index[foods["name"].str.startswith("Tomato puree, canned")][0]
+    assert ai_candidates(tomato, foods, word_similarity(foods)(tomato)) == []
+    scored = pd.DataFrame([{"line": "2 kg can chopped tomatoes", "category": "tomato", "grams": 2000.0,
+                            "kg_co2e": 2.0 * foods.at[tomato, "co2_kg_per_kg"], "food_code": tomato}])
+    out = suggest_swaps(scored, swaps, categories, foods=foods, similar=word_similarity(foods))
+    assert not [s for s in out if s["source"] == "ai"]
