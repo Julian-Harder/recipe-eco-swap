@@ -147,19 +147,17 @@ integration is not left to the last week.
 
 **Milestones to 2 December**
 
-Owners marked *(proposed)* are a suggestion to be confirmed by the team.
-
 | Date | Milestone | Done when | Owner |
 |---|---|---|---|
 | 19 Nov | Tests, parser, matcher, holdout, OFF, swaps | Merged in `main`, logged | Marc (done) |
 | 20 Nov | CI runs the AI demo test with the deployment dependencies | `full-tests` job green on `main` | Marc |
-| 22 Nov | App deployed | Public URL loads the bolognese | Julian (only the repo owner can deploy) |
-| 25 Nov | Swap review | Two members judged the swaps independently; result in LOG.md | Ian + Justin *(proposed: neither wrote the swap code, so less bias)* |
+| 22 Nov | App deployed | Public URL loads the bolognese | [TEAM TO FILL] (must be the repo owner) |
+| 25 Nov | Swap review | Two members judged the swaps independently; result in LOG.md | [TEAM TO FILL] |
 | 25 Nov | Fresh install by everyone | Each member ran `python -m pytest` from a fresh clone | Everyone |
-| 27 Nov | Feedback session | ≥ 3 outside testers; CSV downloaded; findings in LOG.md | Luuk *(proposed)* |
-| 27 Nov | Fill the [TEAM TO FILL] parts of this log | Photo, red-team post-its, tokens, smoke-test swap added | Justin *(proposed)* |
-| 27 Nov | Slides draft | Architecture, real vs faked, results, limitations, roadmap, log slide | Marc + Ian *(proposed)* |
-| **28 Nov** | **Code freeze** | Only bug fixes after this date; CI green | Marc *(proposed: checks CI before each merge)* |
+| 27 Nov | Feedback session | ≥ 3 outside testers; CSV downloaded; findings in LOG.md | [TEAM TO FILL] |
+| 27 Nov | Fill the [TEAM TO FILL] parts of this log | Photo, red-team post-its, tokens, smoke-test swap added | [TEAM TO FILL] |
+| 27 Nov | Slides draft | Architecture, real vs faked, results, limitations, roadmap, log slide | [TEAM TO FILL] |
+| **28 Nov** | **Code freeze** | Only bug fixes after this date; CI green | [TEAM TO FILL] |
 | 30 Nov | Rehearsal | Full demo run on the deployed app, timed | Everyone |
 | 2 Dec | Demo day | — | Everyone |
 
