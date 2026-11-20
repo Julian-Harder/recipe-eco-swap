@@ -125,7 +125,7 @@ integration is not left to the last week.
 
 | # | Risk | Likelihood | Impact | Fallback |
 |---|---|---|---|---|
-| 1 | **The deployed app does not work on demo day**: never deployed, out of memory with the 438 MB model, or asleep and slow to wake | Medium | High | Run the demo locally on a laptop that already has the model; open the hosted app 10 min before to wake it |
+| 1 | **The deployed app does not work on demo day**: never deployed, out of memory with the 438 MB model, or asleep and slow to wake | Medium | High | Run the demo locally on a laptop that already has the model; open the hosted app 10 min before to wake it. Reduced on 20 Nov: CI now installs the deployment dependencies and runs the AI demo test on every push |
 | 2 | **No outside feedback, so no level 4** | Medium | Medium | Ask another team to test it during the session and log their feedback live |
 | 3 | **A wrong match on stage** ("red wine vinegar" → red wine, onion → dried onion) makes the number look absurd | Low (demo path is tested) | High | Demo only the tested bolognese path; show the top-5 dropdown as the safety net and name the limitation |
 | 4 | A last-minute change breaks the demo | Low | High | Code freeze on 28 November; smoke test must pass before every merge |
@@ -147,15 +147,19 @@ integration is not left to the last week.
 
 **Milestones to 2 December**
 
+Owners marked *(proposed)* are a suggestion to be confirmed by the team.
+
 | Date | Milestone | Done when | Owner |
 |---|---|---|---|
 | 19 Nov | Tests, parser, matcher, holdout, OFF, swaps | Merged in `main`, logged | Marc (done) |
-| 22 Nov | App deployed | Public URL loads the bolognese | Julian |
-| 25 Nov | Swap review | Two members judged the swaps independently; result in LOG.md | [TEAM TO FILL] |
-| 25 Nov | Fresh install by everyone | Each member ran `pytest` from a fresh clone | Everyone |
-| 27 Nov | Feedback session | ≥ 3 outside testers; CSV downloaded; findings in LOG.md | [TEAM TO FILL] |
-| 27 Nov | Slides draft | Architecture, real vs faked, results, limitations, roadmap, log slide | [TEAM TO FILL] |
-| **28 Nov** | **Code freeze** | Only bug fixes after this date; smoke test green | Everyone |
+| 20 Nov | CI runs the AI demo test with the deployment dependencies | `full-tests` job green on `main` | Marc |
+| 22 Nov | App deployed | Public URL loads the bolognese | Julian (only the repo owner can deploy) |
+| 25 Nov | Swap review | Two members judged the swaps independently; result in LOG.md | Ian + Justin *(proposed: neither wrote the swap code, so less bias)* |
+| 25 Nov | Fresh install by everyone | Each member ran `python -m pytest` from a fresh clone | Everyone |
+| 27 Nov | Feedback session | ≥ 3 outside testers; CSV downloaded; findings in LOG.md | Luuk *(proposed)* |
+| 27 Nov | Fill the [TEAM TO FILL] parts of this log | Photo, red-team post-its, tokens, smoke-test swap added | Justin *(proposed)* |
+| 27 Nov | Slides draft | Architecture, real vs faked, results, limitations, roadmap, log slide | Marc + Ian *(proposed)* |
+| **28 Nov** | **Code freeze** | Only bug fixes after this date; CI green | Marc *(proposed: checks CI before each merge)* |
 | 30 Nov | Rehearsal | Full demo run on the deployed app, timed | Everyone |
 | 2 Dec | Demo day | — | Everyone |
 
@@ -188,6 +192,19 @@ reviewed after the fact.
 | First AI run slow | 438 MB model download | Expected; noted in README | — |
 
 After the fixes, a fresh clone runs the full suite (31 tests at the time, now 77) and the app.
+
+**Fresh-clone test in a clean Linux environment, 20 November** (Python 3.13, only the README, nothing pre-installed):
+
+| Step | Result |
+|---|---|
+| `git clone`, `python3 -m venv .venv`, `pip install -r requirements.txt` | Works, but **6.1 GB and ~6 min**: on Linux pip installs the GPU build of PyTorch. Fix: README now says to install CPU-only PyTorch first on Linux/Windows without a GPU |
+| `python -m pytest -rs` | 74 passed, 3 skipped; the skips name the cause (the model host was not reachable from that network), as designed |
+| `python src/pipeline.py --keyword` | Bolognese, total and swaps printed (beef → lentils / beans; no parmesan → yogurt) |
+| `streamlit run src/app.py` | App starts and answers (HTTP 200) |
+
+To make the AI part of this check automatic, CI now has a `full-tests` job: clean Ubuntu, Python 3.12, the
+deployed app's own `src/requirements.txt`, model download, and every test including the AI smoke test. A missing
+model fails the job instead of skipping it.
 
 **To do before the freeze:** every member runs the fresh install once (milestone 25 November) and adds any new
 stuck point here.

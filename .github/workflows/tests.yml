@@ -1,9 +1,10 @@
 name: tests
 
-# Runs the fast tests on every push and pull request, so a broken parser or data file
-# shows up as a red cross on the PR before it is merged.
-# The AI smoke test (marked slow) is skipped here: it needs the 438 MB model.
-# Run it locally before merging:  pytest
+# Two jobs on every push and pull request:
+# - fast-tests: parser, data, CO2e maths, keyword demo path (seconds)
+# - full-tests: installs the SAME dependencies as the deployed app (src/requirements.txt, CPU-only PyTorch,
+#   Python 3.12 like Streamlit Cloud), downloads the AI model (cached) and runs every test, including the
+#   AI smoke test of the demo bolognese. A missing model fails the job instead of skipping.
 
 on:
   push:
@@ -20,3 +21,22 @@ jobs:
           python-version: "3.11"
       - run: pip install pandas numpy pytest requests
       - run: pytest -m "not slow" -rxs
+
+  full-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: src/requirements.txt
+      - name: Cache the AI model
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-food-embeddings-v1
+      - run: pip install -r src/requirements.txt pytest
+      - run: pytest -rs
+        env:
+          REQUIRE_AI_MODEL: "1"

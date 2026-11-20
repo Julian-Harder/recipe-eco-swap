@@ -38,7 +38,7 @@ matching is as good or better (see LOG.md, "Open Food Facts from Stub to Real").
 - [x] Parser fixes, synonym and typo normalization
 - [x] Dish-aware swaps and AI swaps for any food
 - [x] Open Food Facts used (validation + barcode lookup), with a label audit
-- [x] Feedback form, deployment files, 77 automated tests and CI on every push
+- [x] Feedback form, deployment files, 77 automated tests and CI on every push (including the AI tests)
 
 **To do before 2 December**
 - [ ] Deploy on Streamlit Community Cloud (repo owner, see "Deployed app" below)
@@ -60,6 +60,12 @@ All Python packages live in a project virtual environment (`.venv`), nothing glo
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt   # pandas, sentence-transformers, requests, ...
+```
+On **Linux or Windows without an NVIDIA GPU**, install the CPU-only PyTorch first, or pip pulls about 6 GB of GPU
+libraries (found in our fresh-install test: 6.1 GB, ~6 min):
+```bash
+pip install torch --index-url https://download.pytorch.org/whl/cpu
+pip install -r requirements.txt
 ```
 
 ## How to run
@@ -98,8 +104,10 @@ pytest -m "not slow"      # fast tests only: parser, CO2e maths, data files, key
   data files agree with each other (and that test, dev and holdout sets do not overlap).
 - `tests/test_normalize.py` synonyms and typo correction; `tests/test_swaps.py` dish rules and AI swaps;
   `tests/test_off.py` Open Food Facts parsing and scoring (no network); `tests/test_feedback.py` the feedback CSV.
-- GitHub Actions runs the fast tests on every push and pull request (`.github/workflows/tests.yml`).
-  It cannot run the AI test, so run plain `pytest` locally before merging.
+- GitHub Actions (`.github/workflows/tests.yml`) runs on every push and pull request: the fast tests, and a
+  second job that installs the deployed app's dependencies (`src/requirements.txt`, Python 3.12), downloads the
+  model and runs **all** tests, including the AI smoke test. A green check means the demo path works with the
+  same packages Streamlit Cloud will install.
 
 ## Deployed app (Streamlit Community Cloud)
 The app is hosted so testers outside the team can use it (course level 4).
